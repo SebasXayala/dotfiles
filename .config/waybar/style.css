@@ -9,7 +9,7 @@ window#waybar { background: alpha(@bg, 0.85); color: @fg; }
 #workspaces button.urgent { background: @urgent; color: @bg; }
 #window { padding: 0 10px; color: @fg_dim; }
 
-#clock, #cpu, #memory, #temperature, #custom-gpu, #tray, #bluetooth, #backlight, #wireplumber, #network, #power-profiles-daemon, #battery, #custom-power {
+#clock, #cpu, #memory, #temperature, #custom-gpu, #custom-fans, #tray, #bluetooth, #backlight, #wireplumber, #network, #power-profiles-daemon, #battery, #custom-power {
   padding: 0 10px; margin: 4px 3px; background: @surface; border-radius: 8px; }
 
 #clock { color: @accent; font-weight: bold; }
@@ -32,3 +32,6 @@ window#waybar { background: alpha(@bg, 0.85); color: @fg; }
 
 #custom-power { color: @urgent; margin-right: 6px; }
 #custom-power:hover { background: @urgent; color: @bg; }
+
+#custom-fans     { color: @teal; }
+#custom-fans.max { background: @urgent; color: @bg; }

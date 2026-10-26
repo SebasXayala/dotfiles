@@ -144,12 +144,22 @@ Tiempos en `~/.config/hypr/hypridle.conf`.
 | Acción | Cómo |
 |---|---|
 | Ver fecha completa | Clic en la hora |
+| Ventiladores al máximo / automático | Clic en 󰈐 (rojo = máximo) |
+| Cambiar perfil de energía | Clic en el ícono de perfil (verde ahorro · azul equilibrado · rojo rendimiento) |
+| Menú apagar / reiniciar / bloquear | Clic en ⏻ (wlogout) |
+| Bluetooth | Clic en el ícono → `bluetoothctl` |
+| Detalles de RAM, GPU, ventiladores, batería | Pasar el ratón por encima |
 | Ver calendario | Pasar el ratón sobre la hora |
 | Abrir menú de Wi-Fi (nmtui) | Clic en la red |
 | Silenciar / activar sonido | Clic en el volumen |
 | Cambiar de escritorio | Clic en el número |
 | Recargar estilo | `pkill -SIGUSR2 waybar` |
 | Reiniciar la barra | `pkill waybar; nohup waybar >/dev/null 2>&1 &` |
+| Quitar un módulo | Borrar su nombre de `modules-left/center/right` en `config.jsonc` y reiniciar la barra |
+
+Orden: escritorios · ventana activa · hora · CPU · RAM · temperatura · GPU · ventiladores · bandeja · Bluetooth · brillo · volumen · red · perfil · batería · apagado.
+
+> El módulo de GPU mantiene despierta la RTX: en batería conviene quitarlo o subir su `interval`.
 
 ---
 
@@ -268,6 +278,9 @@ Tiempos en `~/.config/hypr/hypridle.conf`.
 | `journalctl -b -p err` | Errores del arranque actual |
 | `sudo ufw status verbose` | Estado del firewall |
 | `fwupdmgr refresh && fwupdmgr get-updates` | Buscar actualizaciones de firmware |
+| `cat /sys/firmware/acpi/platform_profile` | Perfil térmico actual |
+| `cat /sys/devices/platform/hp-wmi/hwmon/hwmon*/fan{1,2}_input` | RPM de los ventiladores |
+| `echo 0 \| sudo tee /sys/devices/platform/hp-wmi/hwmon/hwmon*/pwm1_enable` | Ventiladores al máximo (`2` = automático) |
 
 ---
 

@@ -151,12 +151,28 @@ Las de **compilación** (meson, ninja, scdoc, python-tqdm) y `wlogout-debug` ya 
 | `~/.config/hypr/hypridle.conf` | Copiado del ejemplo: atenuar 2,5 min · bloquear 5 min · apagar pantalla 5,5 min · suspender 30 min |
 | `~/.config/theme/palette.sh` | **Paleta central** (base Catppuccin Mocha). El único archivo de colores que se edita |
 | `~/.config/theme/apply.sh` | Genera `generated/` (Hyprland, Waybar, hyprlock, kitty) y `mako/config`; recarga todo |
-| `~/.config/waybar/config.jsonc` · `style.css` | Módulos de la barra; el estilo importa `colors.css` de la paleta |
+| `~/.config/waybar/config.jsonc` · `style.css` | Módulos: escritorios, ventana activa, reloj, CPU, RAM, temperatura (k10temp), GPU, ventiladores, bandeja, Bluetooth, brillo, volumen, red, perfil de energía, batería y apagado (wlogout). El estilo importa `colors.css` de la paleta |
+| `~/.config/waybar/scripts/gpu.sh` | Uso, temperatura y VRAM de la RTX 3050 (`nvidia-smi`) |
+| `~/.config/waybar/scripts/fans.sh` | RPM de los ventiladores; clic alterna máximo (`pwm1_enable=0`) / automático (`2`) |
+| `/etc/udev/rules.d/99-hp-fan.rules` | Permite al grupo `wheel` escribir `pwm1_enable` sin sudo. **Fuera de home: no está en dotfiles, recrear si reinstalas** |
 | `~/.config/kitty/kitty.conf` | `include` de los colores + tu estructura |
 | `~/.config/mako/config.base` | Estructura de mako (timeout 3000 ms); `config` se genera solo |
 | `~/.bashrc` | Alias `dot` para los dotfiles |
 | Git | `user.name SebasXayala`, rama por defecto `main`; dotfiles en `~/.dotfiles` → `github.com/SebasXayala/dotfiles` (privado) |
 | Wi-Fi | Red guardada con `nmtui`; se conecta sola |
+
+## Ventiladores y perfiles térmicos (hp-wmi)
+
+El kernel ya soporta el Victus 15-fb0xxx (placa 8A3D).
+
+| Qué | Dónde / valor |
+|---|---|
+| Perfiles térmicos | `/sys/firmware/acpi/platform_profile` → cool · quiet · balanced · performance (los cambia el botón de perfil de Waybar) |
+| Modo ventiladores | `/sys/devices/platform/hp-wmi/hwmon/hwmon*/pwm1_enable` → `0` máximo · `2` automático |
+| RPM | `fan1_input` (CPU) · `fan2_input` (GPU) en la misma carpeta |
+| Medidas | Automático en reposo ≈ 2700 / 2400 RPM · Máximo ≈ 5390 / 5208 RPM |
+
+> Automático = el firmware ajusta según temperatura. El perfil cambia la agresividad, no fija el máximo.
 
 ## Snapshots manuales (puntos de retorno)
 
@@ -177,7 +193,6 @@ Las de **compilación** (meson, ninja, scdoc, python-tqdm) y `wlogout-debug` ya 
 - `gnome-keyring`: guardar contraseñas de Chrome/Discord cifradas.
 - `noto-fonts-emoji`: emojis en web y Discord (verificar si está con `pacman -Q noto-fonts-emoji`).
 - `hyprpaper` (fondo de pantalla) y conectar hyprlock a la paleta.
-- Waybar: módulos de CPU, RAM, temperatura o GPU NVIDIA.
 - Agente SSH para no escribir la passphrase en cada `push`.
 - Revisar huérfanos de vez en cuando: `pacman -Qdt` → borrar con `sudo pacman -Rns $(pacman -Qdtq)`.
 - Que yay borre solas las dependencias de compilación: `yay --save --removemake`.
