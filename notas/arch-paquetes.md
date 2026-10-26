@@ -67,8 +67,9 @@ Equipo: HP Victus 15-fb0xxx · Ryzen 5 5600H · RTX 3050 Laptop 4 GB · 16 GB RA
 | hyprland | Gestor de ventanas | oficial | elegido |
 | xdg-desktop-portal-hyprland | Compartir pantalla, capturas desde apps | oficial | elegido |
 | xdg-desktop-portal-gtk | Ventanas de "Abrir / Guardar archivo" | oficial | elegido |
-| kitty | Terminal (Super + Q) | oficial | elegido |
+| kitty | Terminal (Super + T) | oficial | elegido |
 | hyprlauncher | Lanzador de apps (Super + R) | oficial | elegido |
+| waybar | Barra superior (escritorios, hora, batería, red, volumen) | oficial | elegido |
 | mako | Notificaciones | oficial | elegido |
 | libnotify | Comando `notify-send` | oficial | elegido |
 | noto-fonts | Fuente base para el texto | oficial | elegido |
@@ -106,13 +107,15 @@ Equipo: HP Victus 15-fb0xxx · Ryzen 5 5600H · RTX 3050 Laptop 4 GB · 16 GB RA
 | firefox | Navegador | oficial | elegido |
 | google-chrome | Navegador con sincronización de cuenta Google | AUR | elegido |
 | discord | Chat y llamadas | oficial | elegido |
+| visual-studio-code-bin | VS Code oficial de Microsoft (editor) | AUR | elegido |
 
 ## 10. Herramientas y mantenimiento
 
 | Paquete | Para qué | Origen | Tipo |
 |---|---|---|---|
 | neovim | Editor de texto | archinstall | elegido |
-| git | Control de versiones (requerido para yay) | oficial | elegido |
+| git | Control de versiones (yay, dotfiles) | oficial | elegido |
+| openssh | Clave SSH para GitHub (`~/.ssh/id_ed25519`) | oficial | elegido |
 | base-devel | Herramientas de compilación (requerido para AUR) | oficial | elegido |
 | yay-bin | Ayudante para instalar desde el AUR | AUR | elegido |
 | pacman-contrib | Limpieza de caché, `pactree`, `pacdiff`, `checkupdates` | oficial | elegido |
@@ -123,7 +126,7 @@ Equipo: HP Victus 15-fb0xxx · Ryzen 5 5600H · RTX 3050 Laptop 4 GB · 16 GB RA
 ## Servicios activados al arranque
 
 **Sistema:** NetworkManager · bluetooth · power-profiles-daemon · ufw · fstrim.timer · grub-btrfsd · paccache.timer
-**Al iniciar Hyprland** (`hl.on("hyprland.start")` en `hyprland.lua`): hyprpolkitagent · hypridle · mako
+**Al iniciar Hyprland** (`hl.on("hyprland.start")` en `hyprland.lua`): hyprpolkitagent · hypridle · mako · waybar
 
 ## Cambios de configuración hechos a mano
 
@@ -132,9 +135,16 @@ Equipo: HP Victus 15-fb0xxx · Ryzen 5 5600H · RTX 3050 Laptop 4 GB · 16 GB RA
 | `/etc/mkinitcpio.conf` | `grub-btrfs-overlayfs` añadido al final de `HOOKS` (arrancar snapshots) |
 | `/etc/default/grub` | `GRUB_TOP_LEVEL="/boot/vmlinuz-linux"` (kernel principal por defecto) |
 | BIOS (efibootmgr) | Borradas entradas viejas Boot0000/0001/0002 (Windows, GRUB, Ubuntu). Quedan 0008 (disco) y 9999 (USB) |
-| `~/.config/hypr/hyprland.lua` | Autoarranque de polkit, hypridle y mako · `fileManager = "kitty -e yazi"` · `menu = "hyprlauncher"` · atajos de captura (Print, Shift+Print, Super+Shift+S) · eliminado el atajo original Super+Shift+S (mover a espacio especial) |
+| `~/.config/hypr/hyprland.lua` | Carga la paleta (`local theme = dofile(...)`) y la usa en los bordes · autoarranque de polkit, hypridle, mako y waybar · `fileManager = "kitty -e yazi"` · `menu = "hyprlauncher"` · monitores (HDMI-A-1 izquierda 100 Hz, eDP-1 derecha 144 Hz escala 1.5) · atajos: Super+T terminal, Super+Q cerrar, Super+F pantalla completa, Super+L bloquear, Super+Shift+flechas mover, Super+Ctrl+flechas tamaño, capturas (Print, Shift+Print, Super+Shift+S) · eliminado el atajo original Super+Shift+S (mover a espacio especial) |
 | `~/.config/hypr/hyprlock.conf` | Copiado del ejemplo `/usr/share/hypr/hyprlock.conf` |
 | `~/.config/hypr/hypridle.conf` | Copiado del ejemplo: atenuar 2,5 min · bloquear 5 min · apagar pantalla 5,5 min · suspender 30 min |
+| `~/.config/theme/palette.sh` | **Paleta central** (base Catppuccin Mocha). El único archivo de colores que se edita |
+| `~/.config/theme/apply.sh` | Genera `generated/` (Hyprland, Waybar, hyprlock, kitty) y `mako/config`; recarga todo |
+| `~/.config/waybar/config.jsonc` · `style.css` | Módulos de la barra; el estilo importa `colors.css` de la paleta |
+| `~/.config/kitty/kitty.conf` | `include` de los colores + tu estructura |
+| `~/.config/mako/config.base` | Estructura de mako (timeout 3000 ms); `config` se genera solo |
+| `~/.bashrc` | Alias `dot` para los dotfiles |
+| Git | `user.name SebasXayala`, rama por defecto `main`; dotfiles en `~/.dotfiles` → `github.com/SebasXayala/dotfiles` (privado) |
 | Wi-Fi | Red guardada con `nmtui`; se conecta sola |
 
 ## Snapshots manuales (puntos de retorno)
@@ -146,6 +156,7 @@ Equipo: HP Victus 15-fb0xxx · Ryzen 5 5600H · RTX 3050 Laptop 4 GB · 16 GB RA
 | Hyprland + NVIDIA + Chrome funcionando | Escritorio funcional |
 | Yazi, launcher y Wi-Fi configurados | Explorador, launcher y Wi-Fi |
 | Utilidades esenciales instaladas | Bloqueo, notificaciones, portapapeles, mantenimiento y capturas |
+| Config Hyprland: monitores, capturas, autoarranque (config **home**) | Carpeta personal con la configuración de Hyprland |
 
 > Comprueba cuáles creaste realmente con `sudo snapper list`.
 
@@ -154,7 +165,9 @@ Equipo: HP Victus 15-fb0xxx · Ryzen 5 5600H · RTX 3050 Laptop 4 GB · 16 GB RA
 - Luz del teclado en `hypridle.conf`: verificar el nombre con `brightnessctl -l | grep -i kbd`.
 - `gnome-keyring`: guardar contraseñas de Chrome/Discord cifradas.
 - `noto-fonts-emoji`: emojis en web y Discord (verificar si está con `pacman -Q noto-fonts-emoji`).
-- `waybar` (barra con batería, hora, Wi-Fi), `hyprpaper` (fondo de pantalla).
+- `hyprpaper` (fondo de pantalla) y conectar hyprlock a la paleta.
+- Waybar: módulos de CPU, RAM, temperatura o GPU NVIDIA.
+- Agente SSH para no escribir la passphrase en cada `push`.
 - Autoarranque de Hyprland al iniciar sesión (snippet en `~/.bash_profile`).
 
 ---

@@ -9,26 +9,30 @@ Guía rápida de uso de lo instalado. **Super** = tecla Windows.
 
 ## 1. Hyprland — ventanas y escritorios
 
-### Abrir y cerrar
+### Abrir y cerrar (personalizados, estilo dotfiles populares)
 
 | Atajo | Acción |
 |---|---|
-| Super + Q | Abrir terminal (kitty) |
+| **Super + T** | Abrir terminal (kitty) |
+| **Super + Q** | **Cerrar la ventana activa** |
 | Super + R | Abrir lanzador de apps (hyprlauncher) |
 | Super + E | Abrir explorador de archivos (Yazi) |
-| Super + C | Cerrar la ventana activa *(por defecto)* |
+| **Super + F** | Pantalla completa (activar / desactivar) |
+| **Super + L** | Bloquear pantalla |
 | Super + M | **Salir de Hyprland** (cierra todo y vuelve al login) |
 
-### Organizar ventanas *(por defecto)*
+### Organizar ventanas
 
 | Atajo | Acción |
 |---|---|
 | Super + flechas | Mover el foco a la ventana de esa dirección |
+| **Super + Shift + flechas** | **Mover la ventana** (intercambia posición; en el borde pasa a la otra pantalla) |
+| **Super + Ctrl + flechas** | **Cambiar el tamaño** (mantén pulsado para seguir) |
 | Super + V | Alternar ventana flotante / en mosaico |
-| Super + J | Cambiar la división (horizontal / vertical) |
-| Super + P | Modo pseudo-mosaico |
-| Super + clic izquierdo (arrastrar) | Mover ventana |
-| Super + clic derecho (arrastrar) | Cambiar tamaño de ventana |
+| Super + J | Cambiar la división (horizontal / vertical) *(por defecto)* |
+| Super + P | Modo pseudo-mosaico *(por defecto)* |
+| Super + clic izquierdo (arrastrar) | Mover ventana con el ratón |
+| Super + clic derecho (arrastrar) | Cambiar tamaño con el ratón |
 
 ### Escritorios (workspaces) *(por defecto)*
 
@@ -38,6 +42,15 @@ Guía rápida de uso de lo instalado. **Super** = tecla Windows.
 | Super + Shift + 1…0 | Mover la ventana activa al escritorio 1 a 10 |
 | Super + rueda del ratón | Pasar al escritorio anterior / siguiente |
 | Super + S | Mostrar / ocultar el espacio especial ("magic") |
+
+### Monitores
+
+| Pantalla | Posición | Modo |
+|---|---|---|
+| HDMI-A-1 (monitor de mesa) | Izquierda (0×0) | 1920×1080 @ 100 Hz, escala 1 |
+| eDP-1 (portátil) | Derecha (1920×0) | 1920×1080 @ 144 Hz, escala 1.5 |
+
+El cursor pasa al portátil por el borde **derecho** del monitor de mesa. Ver: `hyprctl monitors`.
 
 ### Capturas de pantalla (personalizados)
 
@@ -71,7 +84,7 @@ Guía rápida de uso de lo instalado. **Super** = tecla Windows.
 
 | Acción | Cómo |
 |---|---|
-| Bloquear ahora | `loginctl lock-session` (o `hyprlock`) |
+| Bloquear ahora | **Super + L** o `loginctl lock-session` |
 | Desbloquear | Escribir tu contraseña + Enter |
 | Suspender | `systemctl suspend` (bloquea antes de dormir) |
 
@@ -126,7 +139,21 @@ Tiempos en `~/.config/hypr/hypridle.conf`.
 
 ---
 
-## 5. Lanzador y notificaciones
+## 5. Waybar (barra superior)
+
+| Acción | Cómo |
+|---|---|
+| Ver fecha completa | Clic en la hora |
+| Ver calendario | Pasar el ratón sobre la hora |
+| Abrir menú de Wi-Fi (nmtui) | Clic en la red |
+| Silenciar / activar sonido | Clic en el volumen |
+| Cambiar de escritorio | Clic en el número |
+| Recargar estilo | `pkill -SIGUSR2 waybar` |
+| Reiniciar la barra | `pkill waybar; nohup waybar >/dev/null 2>&1 &` |
+
+---
+
+## 6. Lanzador y notificaciones
 
 | Acción | Cómo |
 |---|---|
@@ -135,10 +162,46 @@ Tiempos en `~/.config/hypr/hypridle.conf`.
 | Cerrar todas | `makoctl dismiss -a` |
 | Recuperar la última cerrada | `makoctl restore` |
 | Enviar una de prueba | `notify-send "Título" "Mensaje"` |
+| Duración | `default-timeout` en `~/.config/mako/config.base` (3000 = 3 s) |
 
 ---
 
-## 6. Portapapeles y capturas por terminal
+## 7. Tema y colores (paleta central)
+
+| Acción | Cómo |
+|---|---|
+| Cambiar colores | Editar **`~/.config/theme/palette.sh`** |
+| Aplicar los cambios | `~/.config/theme/apply.sh` (regenera y recarga todo) |
+| Estructura de kitty | `~/.config/kitty/kitty.conf` (debajo de la línea `include`) |
+| Estructura de mako | `~/.config/mako/config.base` (**no** editar `config`) |
+| Estructura de Waybar | `~/.config/waybar/config.jsonc` y `style.css` |
+| Bordes, espacios, animaciones | `~/.config/hypr/hyprland.lua` |
+| Abrir todas las configs en VS Code | `code ~/.config` |
+
+> `~/.config/theme/generated/` se crea solo: no editar.
+
+---
+
+## 8. Dotfiles (configuración en git)
+
+`dot` = `git` apuntando a `~/.dotfiles` (repo bare). Remoto: `github.com/SebasXayala/dotfiles` (privado).
+
+| Comando | Acción |
+|---|---|
+| `dot status` | Ver qué archivos guardados cambiaron |
+| `dot diff` | Ver exactamente qué líneas cambiaron |
+| `dot add <archivo>` | Añadir un archivo nuevo o cambiado |
+| `dot commit -m "mensaje"` | Guardar el cambio |
+| `dot push` | Subir a GitHub |
+| `dot log --oneline` | Historial |
+| `dot checkout -- <archivo>` | Descartar cambios y volver a la última versión guardada |
+| `ssh -T git@github.com` | Probar la conexión SSH con GitHub |
+
+> Nunca añadir `~/.ssh` ni archivos con contraseñas o tokens. Para proyectos normales se usa `git`, no `dot`.
+
+---
+
+## 9. Portapapeles y capturas por terminal
 
 | Comando | Acción |
 |---|---|
@@ -151,7 +214,7 @@ Tiempos en `~/.config/hypr/hypridle.conf`.
 
 ---
 
-## 7. Red, Bluetooth y audio
+## 10. Red, Bluetooth y audio
 
 | Comando | Acción |
 |---|---|
@@ -165,7 +228,7 @@ Tiempos en `~/.config/hypr/hypridle.conf`.
 
 ---
 
-## 8. Paquetes (pacman y yay)
+## 11. Paquetes (pacman y yay)
 
 | Comando | Acción |
 |---|---|
@@ -180,7 +243,7 @@ Tiempos en `~/.config/hypr/hypridle.conf`.
 
 ---
 
-## 9. Snapshots y recuperación
+## 12. Snapshots y recuperación
 
 | Comando / acción | Para qué |
 |---|---|
@@ -195,7 +258,7 @@ Tiempos en `~/.config/hypr/hypridle.conf`.
 
 ---
 
-## 10. Sistema, NVIDIA y firmware
+## 13. Sistema, NVIDIA y firmware
 
 | Comando | Para qué |
 |---|---|
@@ -208,7 +271,7 @@ Tiempos en `~/.config/hypr/hypridle.conf`.
 
 ---
 
-## 11. neovim (lo mínimo)
+## 14. neovim (lo mínimo)
 
 | Tecla | Acción |
 |---|---|
