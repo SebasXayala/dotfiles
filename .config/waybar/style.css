@@ -1,0 +1,41 @@
+/* Colores desde la paleta central */
+@import url("../theme/generated/colors.css");
+
+* {
+  font-family: "Noto Sans", "Symbols Nerd Font";
+  font-size: 13px;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+}
+
+window#waybar {
+  background: alpha(@bg, 0.85);
+  color: @fg;
+}
+
+#workspaces button {
+  padding: 0 8px;
+  margin: 4px 2px;
+  color: @fg_dim;
+  background: transparent;
+  border-radius: 8px;
+}
+#workspaces button:hover  { background: @surface; }
+#workspaces button.active { background: @accent; color: @bg; }
+#workspaces button.urgent { background: @urgent; color: @bg; }
+
+#clock, #tray, #backlight, #wireplumber, #network, #battery {
+  padding: 0 10px;
+  margin: 4px 3px;
+  background: @surface;
+  border-radius: 8px;
+}
+
+#clock { color: @accent; font-weight: bold; }
+
+#battery.charging, #battery.plugged { color: @ok; }
+#battery.warning:not(.charging)     { color: @warn; }
+#battery.critical:not(.charging)    { color: @urgent; }
+#network.disconnected               { color: @urgent; }
+#wireplumber.muted                  { color: @overlay; }
