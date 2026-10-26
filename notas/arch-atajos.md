@@ -17,7 +17,9 @@ Guía rápida de uso de lo instalado. **Super** = tecla Windows.
 | **Super + Q** | **Cerrar la ventana activa** |
 | Super + R | Abrir lanzador de apps (hyprlauncher) |
 | Super + E | Abrir explorador de archivos (Yazi) |
-| **Super + F** | Pantalla completa (activar / desactivar) |
+| **Super + F** | Maximizar (llena la pantalla, conserva Waybar y la interfaz de la app) |
+| **Super + Shift + F** | Pantalla completa real (videos, juegos; oculta pestañas del navegador) |
+| **Super + W** | Siguiente fondo de pantalla (carpeta `~/Pictures/Wallpapers`) |
 | **Super + L** | Bloquear pantalla |
 | Super + M | **Salir de Hyprland** (cierra todo y vuelve al login) |
 
@@ -48,9 +50,11 @@ Guía rápida de uso de lo instalado. **Super** = tecla Windows.
 | Pantalla | Posición | Modo |
 |---|---|---|
 | HDMI-A-1 (monitor de mesa) | Izquierda (0×0) | 1920×1080 @ 100 Hz, escala 1 |
-| eDP-1 (portátil) | Derecha (1920×0) | 1920×1080 @ 144 Hz, escala 1.5 |
+| eDP-1 (portátil) | Derecha (1920×0) | 1920×1080 @ 144 Hz, escala 1.2 (espacio útil 1600×900) |
 
 El cursor pasa al portátil por el borde **derecho** del monitor de mesa. Ver: `hyprctl monitors`.
+
+Escalas válidas en 1920×1080 (dan números enteros): 1 · 1.2 · 1.25 · 1.5 · 1.6 · 2.
 
 ### Capturas de pantalla (personalizados)
 
@@ -109,6 +113,28 @@ Tiempos en `~/.config/hypr/hypridle.conf`.
 | Ctrl + Shift + H | Ver todo el historial de la terminal |
 | Ctrl + Shift + F2 | Editar configuración de kitty |
 | Ctrl + D o `exit` | Cerrar la terminal |
+| Ctrl + Shift + A → M / L / 1 | Más / menos transparencia / opaco (solo esa ventana, temporal) |
+| Ctrl + Shift + F5 | Recargar la configuración de kitty |
+
+**Configuración:** fuente JetBrains Mono Nerd Font 11 · transparencia 0.90 · márgenes 12 · cursor línea · pestañas abajo · shell zsh.
+
+---
+
+## 3b. zsh, Starship y herramientas
+
+| Atajo / comando | Acción |
+|---|---|
+| → (flecha derecha) | Aceptar la sugerencia gris del historial |
+| Ctrl + R | Buscar en el historial (fzf) |
+| Ctrl + T | Buscar un archivo e insertarlo en el comando (fzf) |
+| Tab | Autocompletar con menú (flechas para elegir) |
+| Ctrl + → / ← | Saltar palabra |
+| `z <parte del nombre>` | Ir a una carpeta frecuente (zoxide), p. ej. `z wall` |
+| `ls` · `ll` · `tree` | Listar con íconos · detallado con git · árbol (eza) |
+| `cat <archivo>` | Ver archivo con colores (bat) |
+| `ff` | fastfetch |
+
+> Rojo al escribir = el comando no existe. Configuración en `~/.zshrc`.
 
 ---
 
@@ -183,6 +209,7 @@ Orden: escritorios · ventana activa · hora · CPU · RAM · temperatura · GPU
 | Cambiar colores | Editar **`~/.config/theme/palette.sh`** |
 | Aplicar los cambios | `~/.config/theme/apply.sh` (regenera y recarga todo) |
 | Estructura de kitty | `~/.config/kitty/kitty.conf` (debajo de la línea `include`) |
+| Fondo de pantalla | Imágenes en `~/Pictures/Wallpapers` (nombres **sin espacios ni comas**) · Super + W rota · probar al momento: `hyprctl hyprpaper wallpaper "eDP-1,$HOME/Pictures/Wallpapers/x.jpg"` |
 | Estructura de mako | `~/.config/mako/config.base` (**no** editar `config`) |
 | Estructura de Waybar | `~/.config/waybar/config.jsonc` y `style.css` |
 | Bordes, espacios, animaciones | `~/.config/hypr/hyprland.lua` |
@@ -198,16 +225,18 @@ Orden: escritorios · ventana activa · hora · CPU · RAM · temperatura · GPU
 
 | Comando | Acción |
 |---|---|
-| `dot status` | Ver qué archivos guardados cambiaron |
+| `dot status -sb` | Ver si estás al día con GitHub (`ahead N` = commits sin subir) y qué cambió |
 | `dot diff` | Ver exactamente qué líneas cambiaron |
 | `dot add <archivo>` | Añadir un archivo nuevo o cambiado |
 | `dot commit -m "mensaje"` | Guardar el cambio |
 | `dot push` | Subir a GitHub |
-| `dot log --oneline` | Historial |
+| `dot --no-pager log --oneline -6` | Últimos commits |
 | `dot checkout -- <archivo>` | Descartar cambios y volver a la última versión guardada |
 | `ssh -T git@github.com` | Probar la conexión SSH con GitHub |
 
 > Nunca añadir `~/.ssh` ni archivos con contraseñas o tokens. Para proyectos normales se usa `git`, no `dot`.
+> Ignorados (se generan solos): `theme/generated/` y `mako/config`, en `~/.dotfiles/info/exclude`.
+> `hyprpaper.conf` cambia con cada Super + W: súbelo cuando quieras guardar el fondo actual.
 
 ---
 
