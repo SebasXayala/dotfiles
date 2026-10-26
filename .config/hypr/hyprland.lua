@@ -79,6 +79,7 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd("hypridle")
   hl.exec_cmd("mako")
   hl.exec_cmd("waybar")
+  hl.exec_cmd("hyprpaper")
 end)
 
 
@@ -394,7 +395,7 @@ hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-co
 
 -- ===== Atajos personalizados =====
 -- Pantalla completa y bloqueo
-hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("loginctl lock-session"))
 
 -- Mover ventana (Super + Shift + flechas). En el borde pasa a la otra pantalla.
@@ -408,3 +409,5 @@ hl.bind(mainMod .. " + CTRL + left",  hl.dsp.window.resize({ x = -40, y = 0,   r
 hl.bind(mainMod .. " + CTRL + right", hl.dsp.window.resize({ x = 40,  y = 0,   relative = true }), { repeating = true })
 hl.bind(mainMod .. " + CTRL + up",    hl.dsp.window.resize({ x = 0,   y = -40, relative = true }), { repeating = true })
 hl.bind(mainMod .. " + CTRL + down",  hl.dsp.window.resize({ x = 0,   y = 40,  relative = true }), { repeating = true })
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallpaper-next.sh"))
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
