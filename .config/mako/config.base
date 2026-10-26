@@ -1,0 +1,12 @@
+# ===== Estructura de mako: EDITA ESTE ARCHIVO =====
+# Los colores se añaden solos desde la paleta al ejecutar apply.sh
+# (no edites ~/.config/mako/config, se sobrescribe)
+font=Noto Sans 11
+width=360
+height=150
+margin=12
+padding=12
+border-size=2
+border-radius=10
+default-timeout=5000
+anchor=top-right
