@@ -1,41 +1,34 @@
-/* Colores desde la paleta central */
 @import url("../theme/generated/colors.css");
 
-* {
-  font-family: "Noto Sans", "Symbols Nerd Font";
-  font-size: 13px;
-  border: none;
-  border-radius: 0;
-  min-height: 0;
-}
+* { font-family: "Noto Sans", "Symbols Nerd Font"; font-size: 13px; border: none; border-radius: 0; min-height: 0; }
+window#waybar { background: alpha(@bg, 0.85); color: @fg; }
 
-window#waybar {
-  background: alpha(@bg, 0.85);
-  color: @fg;
-}
-
-#workspaces button {
-  padding: 0 8px;
-  margin: 4px 2px;
-  color: @fg_dim;
-  background: transparent;
-  border-radius: 8px;
-}
+#workspaces button { padding: 0 8px; margin: 4px 2px; color: @fg_dim; background: transparent; border-radius: 8px; }
 #workspaces button:hover  { background: @surface; }
 #workspaces button.active { background: @accent; color: @bg; }
 #workspaces button.urgent { background: @urgent; color: @bg; }
+#window { padding: 0 10px; color: @fg_dim; }
 
-#clock, #tray, #backlight, #wireplumber, #network, #battery {
-  padding: 0 10px;
-  margin: 4px 3px;
-  background: @surface;
-  border-radius: 8px;
-}
+#clock, #cpu, #memory, #temperature, #custom-gpu, #tray, #bluetooth, #backlight, #wireplumber, #network, #power-profiles-daemon, #battery, #custom-power {
+  padding: 0 10px; margin: 4px 3px; background: @surface; border-radius: 8px; }
 
 #clock { color: @accent; font-weight: bold; }
+#cpu, #memory { color: @blue; }
+#temperature { color: @teal; }
+#temperature.critical { color: @urgent; }
+#custom-gpu { color: @green; }
 
 #battery.charging, #battery.plugged { color: @ok; }
-#battery.warning:not(.charging)     { color: @warn; }
-#battery.critical:not(.charging)    { color: @urgent; }
-#network.disconnected               { color: @urgent; }
-#wireplumber.muted                  { color: @overlay; }
+#battery.warning:not(.charging) { color: @warn; }
+#battery.critical:not(.charging) { color: @urgent; }
+#network.disconnected { color: @urgent; }
+#wireplumber.muted { color: @overlay; }
+#bluetooth.off, #bluetooth.disabled { color: @overlay; }
+#bluetooth.connected { color: @accent2; }
+
+#power-profiles-daemon.performance { color: @urgent; }
+#power-profiles-daemon.balanced { color: @accent2; }
+#power-profiles-daemon.power-saver { color: @ok; }
+
+#custom-power { color: @urgent; margin-right: 6px; }
+#custom-power:hover { background: @urgent; color: @bg; }
