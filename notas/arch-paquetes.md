@@ -70,6 +70,7 @@ Equipo: HP Victus 15-fb0xxx · Ryzen 5 5600H · RTX 3050 Laptop 4 GB · 16 GB RA
 | kitty | Terminal (Super + T) | oficial | elegido |
 | hyprlauncher | Lanzador de apps (Super + R) | oficial | elegido |
 | waybar | Barra superior (escritorios, hora, batería, red, volumen) | oficial | elegido |
+| wlogout | Menú de apagado / reinicio / bloqueo (botón ⏻ de Waybar) | AUR | elegido |
 | mako | Notificaciones | oficial | elegido |
 | libnotify | Comando `notify-send` | oficial | elegido |
 | noto-fonts | Fuente base para el texto | oficial | elegido |
@@ -120,6 +121,16 @@ Equipo: HP Victus 15-fb0xxx · Ryzen 5 5600H · RTX 3050 Laptop 4 GB · 16 GB RA
 | yay-bin | Ayudante para instalar desde el AUR | AUR | elegido |
 | pacman-contrib | Limpieza de caché, `pactree`, `pacdiff`, `checkupdates` | oficial | elegido |
 | fwupd | Actualizaciones de firmware (BIOS, SSD, cámara) | oficial | elegido |
+| less | Paginador para `git log`, `dot log`, `git diff` | oficial | elegido |
+
+## 11. Dependencias que trajo wlogout
+
+Las de **compilación** (meson, ninja, scdoc, python-tqdm) y `wlogout-debug` ya se **borraron**. Estas se quedan porque wlogout las declara como dependencia:
+
+| Paquete | Para qué | Origen | Tipo |
+|---|---|---|---|
+| gobject-introspection (+ runtime, libgirepository) | Herramientas de GTK que pide wlogout | oficial | dependencia de wlogout |
+| python-setuptools, python-wheel, python-packaging, python-platformdirs, python-mako, python-markdown, python-markupsafe, python-more-itertools, python-autocommand, python-jaraco.* | Librerías Python que necesita gobject-introspection | oficial | dependencia |
 
 ---
 
@@ -168,6 +179,8 @@ Equipo: HP Victus 15-fb0xxx · Ryzen 5 5600H · RTX 3050 Laptop 4 GB · 16 GB RA
 - `hyprpaper` (fondo de pantalla) y conectar hyprlock a la paleta.
 - Waybar: módulos de CPU, RAM, temperatura o GPU NVIDIA.
 - Agente SSH para no escribir la passphrase en cada `push`.
+- Revisar huérfanos de vez en cuando: `pacman -Qdt` → borrar con `sudo pacman -Rns $(pacman -Qdtq)`.
+- Que yay borre solas las dependencias de compilación: `yay --save --removemake`.
 - Autoarranque de Hyprland al iniciar sesión (snippet en `~/.bash_profile`).
 
 ---
