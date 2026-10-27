@@ -1,6 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-palette = "nord"
+palette = "theme"
 
 format = """
 [\ue0b6](fg:c1)\
@@ -16,17 +16,6 @@ $nodejs\
 $cmd_duration\
 [\ue0b4 ](fg:c4)\
 $line_break$character"""
-
-[palettes.nord]
-base   = "#2e3440"
-c1     = "#88c0d0"
-c2     = "#81a1c1"
-c3     = "#4c566a"
-c4     = "#3b4252"
-text   = "#eceff4"
-yellow = "#ebcb8b"
-green  = "#a3be8c"
-red    = "#bf616a"
 
 [directory]
 style = "bg:c2 fg:base"

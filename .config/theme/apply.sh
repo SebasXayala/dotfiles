@@ -96,6 +96,26 @@ if [ -f "$MAKO/config.base" ]; then
   } > "$MAKO/config"
 fi
 
+# Starship: tu diseño (starship.base.toml) + colores -> starship.toml
+STAR="$HOME/.config/starship.base.toml"
+if [ -f "$STAR" ]; then
+  {
+    echo "# Generado por apply.sh — edita starship.base.toml, no este archivo"
+    cat "$STAR"
+    echo
+    echo "[palettes.theme]"
+    echo "base   = \"#$BG\""
+    echo "c1     = \"#$ACCENT\""
+    echo "c2     = \"#$ACCENT2\""
+    echo "c3     = \"#$SURFACE2\""
+    echo "c4     = \"#$SURFACE\""
+    echo "text   = \"#$FG\""
+    echo "yellow = \"#$YELLOW\""
+    echo "green  = \"#$GREEN\""
+    echo "red    = \"#$RED\""
+  } > "$HOME/.config/starship.toml"
+fi
+
 # Recargar lo que esté abierto
 hyprctl reload >/dev/null 2>&1 || true
 pkill -SIGUSR2 waybar 2>/dev/null || true
