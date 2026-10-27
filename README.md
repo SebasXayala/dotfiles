@@ -39,12 +39,13 @@ cambias los colores en **un solo archivo** y se actualiza todo el escritorio.
 | Notificaciones | [mako](https://github.com/emersion/mako), tarjetas tipo macOS con íconos WhiteSur |
 | Bloqueo / inactividad | hyprlock + hypridle |
 | Menú de apagado | [wlogout](https://github.com/ArtsyMacaw/wlogout) |
-| Lanzador | hyprlauncher |
+| Lanzador | hyprlauncher (tema vía hyprtoolkit) |
 | Fondos | hyprpaper (rotación con `Super + W`) |
 | Explorador | [Yazi](https://yazi-rs.github.io) |
 | Ficha del sistema | fastfetch con logo propio |
 | Íconos | WhiteSur |
 | Paleta | [Nord](https://www.nordtheme.com) con transparencias y desenfoque |
+| Juegos | Steam + Proton · `prime-run` para la RTX |
 
 ---
 
@@ -60,7 +61,7 @@ La idea principal: **ninguna herramienta tiene sus colores escritos a mano**.
           │
           ├── generated/colors.lua         → Hyprland (bordes, opacidad, blur)
           ├── generated/colors.css         → Waybar y wlogout
-          ├── generated/colors.conf        → hyprlock
+          ├── generated/colors.conf        → hyprlock y hyprlauncher (hyprtoolkit.conf)
           ├── generated/kitty-colors.conf  → kitty (16 colores + transparencia)
           ├── mako/config                  ← config.base + colores
           └── starship.toml                ← starship.base.toml + colores
@@ -96,7 +97,7 @@ Las herramientas de terminal (fastfetch, Yazi, bat, eza) heredan los colores de 
 ├── notas/                     # documentación del equipo (paquetes, atajos, mapa de config)
 └── .config/
     ├── theme/                 # palette.sh + apply.sh  ← el corazón del tema
-    ├── hypr/                  # hyprland.lua, hyprlock, hypridle, hyprpaper, scripts/
+    ├── hypr/                  # hyprland.lua, hyprlock, hypridle, hyprpaper, hyprtoolkit, scripts/
     ├── waybar/                # config.jsonc, style.css, scripts/ (GPU y ventiladores)
     ├── wlogout/               # layout y style.css
     ├── mako/                  # config.base
@@ -123,6 +124,7 @@ sudo pacman -S hyprland hyprlock hypridle hyprpaper hyprlauncher hyprpolkitagent
   eza bat fastfetch fzf zoxide yazi ffmpeg 7zip jq poppler fd ripgrep imagemagick resvg \
   noto-fonts ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols \
   brightnessctl playerctl wl-clipboard grim slurp power-profiles-daemon
+sudo pacman -S steam nvidia-prime     # juegos (requiere multilib)
 yay -S wlogout whitesur-icon-theme
 ```
 
@@ -187,6 +189,7 @@ Todos los atajos están en [`notas/arch-atajos.md`](notas/arch-atajos.md).
 | [`arch-paquetes.md`](notas/arch-paquetes.md) | Cada paquete instalado y para qué sirve; cambios del sistema |
 | [`arch-atajos.md`](notas/arch-atajos.md) | Atajos y comandos de cada herramienta |
 | [`arch-mapa-config.md`](notas/arch-mapa-config.md) | Qué archivo controla qué, y qué sale de la paleta |
+| [`arch-mantenimiento.md`](notas/arch-mantenimiento.md) | Rutina de actualización, snapshots y qué hacer si algo falla |
 
 ---
 

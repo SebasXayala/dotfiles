@@ -59,6 +59,7 @@ generated/ · mako/config · starship.toml   ← se crean solos, NUNCA editarlos
 | kitty | `include` en `kitty.conf` | `theme/generated/kitty-colors.conf` |
 | mako (notificaciones) | `apply.sh` une colores + `config.base` | `mako/config` |
 | Starship (prompt) | `apply.sh` une `starship.base.toml` + colores | `starship.toml` |
+| hyprlauncher (lanzador) | `source =` en `hyprtoolkit.conf` | `theme/generated/colors.conf` |
 | fastfetch, Yazi, bat, eza, zsh | Usan los colores de la terminal | (heredan de kitty) |
 
 ### Lo que NO sale de la paleta (se edita en su archivo)
@@ -69,7 +70,6 @@ generated/ · mako/config · starship.toml   ← se crean solos, NUNCA editarlos
 | Transparencia del fondo y botones de wlogout | `wlogout/style.css` (`alpha(@bg, 0.55)`, `alpha(@surface, 0.85)`) |
 | Desenfoque y brillo del fondo del bloqueo | `hyprlock.conf` → `background` (`blur_passes`, `brightness`) |
 | Colores del logo de fastfetch | `fastfetch/config.jsonc` → `logo.color` (usa nombres ANSI: cyan, blue…) |
-| Lanzador (hyprlauncher) | Sin tema propio todavía |
 | VS Code, Chrome, Discord | Cada app por su cuenta (pendiente: tema Nord) |
 | Íconos (WhiteSur) | Paquete `whitesur-icon-theme`; mako lo usa vía `icon-path` en `config.base` |
 
@@ -84,7 +84,7 @@ generated/ · mako/config · starship.toml   ← se crean solos, NUNCA editarlos
 | Archivo | Qué es | |
 |---|---|---|
 | `~/.config/theme/palette.sh` | **La paleta**: colores y transparencias de todo | ✏️ 📦 |
-| `~/.config/theme/apply.sh` | Genera todo y recarga Hyprland, Waybar, kitty y mako | ✏️ 📦 |
+| `~/.config/theme/apply.sh` | Genera todo y recarga Hyprland, Waybar, kitty, mako y hyprlauncher | ✏️ 📦 |
 | `~/.config/theme/generated/` | `colors.lua` · `colors.css` · `colors.conf` · `kitty-colors.conf` | ⚙️ |
 
 ### Escritorio (Hyprland y compañía)
@@ -101,6 +101,7 @@ generated/ · mako/config · starship.toml   ← se crean solos, NUNCA editarlos
 | `~/.config/waybar/scripts/gpu.sh` · `fans.sh` | Datos de la RTX y control de ventiladores | ✏️ 📦 |
 | `~/.config/wlogout/layout` | Botones del menú de apagado y sus acciones | ✏️ 📦 |
 | `~/.config/wlogout/style.css` | Cómo se ve el menú de apagado | ✏️ 🎨 📦 |
+| `~/.config/hypr/hyprtoolkit.conf` | Tema del lanzador (Super + R): colores, esquinas, fuente, íconos | ✏️ 🎨 📦 |
 | `~/.config/mako/config.base` | Notificaciones: tamaño, esquinas, posición, duración, íconos | ✏️ 📦 |
 | `~/.config/mako/config` | Notificaciones final (base + colores) | ⚙️ |
 
@@ -161,7 +162,8 @@ Si reinstalas, **hay que recrearlos a mano**. Hay copia en `~/.config/system/` y
 | Botones del menú de apagado | `wlogout/layout` | Abrir el menú de nuevo |
 | Duración o tamaño de notificaciones | `mako/config.base` | `apply.sh` |
 | Forma del prompt | `starship.base.toml` | `apply.sh` |
-| Fuente o márgenes de la terminal | `kitty/kitty.conf` | Ctrl + Shift + F5 |
+| Fuente o márgenes de la terminal (hoy: 10 / 8) | `kitty/kitty.conf` | Ctrl + Shift + F5 |
+| Esquinas, fuente o íconos del lanzador | `hypr/hyprtoolkit.conf` | `pkill hyprlauncher` |
 | Alias o plugins de la terminal | `~/.zshrc` | `source ~/.zshrc` |
 | Logo o datos de fastfetch | `fastfetch/logo.txt` · `config.jsonc` | `ff` |
 | Fondos de pantalla | Poner imágenes en `~/Pictures/Wallpapers` | Super + W |

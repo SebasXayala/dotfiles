@@ -68,7 +68,7 @@ Equipo: HP Victus 15-fb0xxx · Ryzen 5 5600H · RTX 3050 Laptop 4 GB · 16 GB RA
 | xdg-desktop-portal-hyprland | Compartir pantalla, capturas desde apps | oficial | elegido |
 | xdg-desktop-portal-gtk | Ventanas de "Abrir / Guardar archivo" | oficial | elegido |
 | kitty | Terminal (Super + T) | oficial | elegido |
-| hyprlauncher | Lanzador de apps (Super + R) | oficial | elegido |
+| hyprlauncher | Lanzador de apps (Super + R). Tema en `hyprtoolkit.conf` | oficial | elegido |
 | waybar | Barra superior (escritorios, hora, batería, red, volumen) | oficial | elegido |
 | wlogout | Menú de apagado / reinicio / bloqueo (botón de ajustes de Waybar) | AUR | elegido |
 | whitesur-icon-theme | Íconos estilo macOS (notificaciones de mako) | AUR | elegido |
@@ -127,6 +127,14 @@ Equipo: HP Victus 15-fb0xxx · Ryzen 5 5600H · RTX 3050 Laptop 4 GB · 16 GB RA
 | discord | Chat y llamadas | oficial | elegido |
 | visual-studio-code-bin | VS Code oficial de Microsoft (editor) | AUR | elegido |
 
+## 9b. Juegos
+
+| Paquete | Para qué | Origen | Tipo |
+|---|---|---|---|
+| steam | Tienda y juegos; Proton (Experimental) para juegos de Windows | oficial (multilib) | elegido |
+| nvidia-prime | Comando `prime-run`: el juego usa la RTX 3050 en vez de la AMD integrada | oficial | elegido |
+| (dependencias de steam) | ~40 librerías `lib32-*`, gtk4, zenity, steam-devices… | oficial | dependencia de steam |
+
 ## 10. Herramientas y mantenimiento
 
 | Paquete | Para qué | Origen | Tipo |
@@ -167,13 +175,14 @@ Las de **compilación** (meson, ninja, scdoc, python-tqdm) y `wlogout-debug` ya 
 | `~/.config/hypr/hyprlock.conf` | Bloqueo estilo Mac: escritorio difuminado, hora grande, fecha, contraseña en píldora (amarilla comprobando, roja si falla), `⬢ snaplabs`. Colores con `source = …/generated/colors.conf` |
 | `~/.config/hypr/hypridle.conf` | Copiado del ejemplo: atenuar 2,5 min · bloquear 5 min · apagar pantalla 5,5 min · suspender 30 min |
 | `~/.config/theme/palette.sh` | **Paleta central: Nord**. Colores y transparencias de todo el escritorio: `OPACITY` (terminal 0.50), `BAR_OPACITY` (Waybar 0.45), `NOTIF_OPACITY` (mako 0.95), `WIN_OPACITY_ACTIVE/INACTIVE` (1.0 / 0.60), `BLUR`, `BLUR_SIZE` (12), `BLUR_PASSES` (3) |
-| `~/.config/theme/apply.sh` | Genera `generated/` (Hyprland, Waybar/wlogout, hyprlock, kitty), `mako/config` y `starship.toml` con colores **y transparencias/blur**; recarga todo. Mapa completo en `arch-mapa-config.md` |
+| `~/.config/theme/apply.sh` | Genera `generated/` (Hyprland, Waybar/wlogout, hyprlock, hyprlauncher, kitty), `mako/config` y `starship.toml` con colores **y transparencias/blur**; recarga todo (también reinicia hyprlauncher). Mapa completo en `arch-mapa-config.md` |
 | `~/.config/waybar/config.jsonc` · `style.css` | **Barra estilo Mac** (arriba, 28 px). Izquierda: ⬢ (abre el lanzador), app activa, escritorios ●/○. Derecha: cajón `‹` con CPU, RAM, temperatura, GPU, ventiladores y perfil · bandeja · Bluetooth · red · volumen · batería (% solo si baja) · ajustes (wlogout) · fecha y hora. Sin módulo de brillo. El estilo importa `colors.css` |
 | `~/.config/wlogout/layout` · `style.css` | Menú de apagado: 5 botones en fila (Bloquear `l`, Cerrar sesión `e`, Suspender `u`, Reiniciar `r`, Apagar `s`), sin Hibernar (no hay swap). Colores con `@import` de `colors.css` |
 | `~/.config/waybar/scripts/gpu.sh` | Uso, temperatura y VRAM de la RTX 3050 (`nvidia-smi`) |
 | `~/.config/waybar/scripts/fans.sh` | RPM de los ventiladores; clic alterna máximo (`pwm1_enable=0`) / automático (`2`) |
 | `/etc/udev/rules.d/99-hp-fan.rules` | Permite al grupo `wheel` escribir `pwm1_enable` sin sudo. **Fuera de home: no está en dotfiles, recrear si reinstalas** |
-| `~/.config/kitty/kitty.conf` | `include` de los colores (la transparencia ahora viene de la paleta) · JetBrains Mono Nerd Font 11 · márgenes 12 · cursor línea · pestañas abajo (powerline) · sin pitido · copiar al seleccionar · `shell /usr/bin/zsh` |
+| `~/.config/hypr/hyprtoolkit.conf` | Tema de **hyprlauncher**: `source` de `generated/colors.conf` → fondo, cajas, texto y acento de la paleta · esquinas 14/8 · Noto Sans · íconos WhiteSur |
+| `~/.config/kitty/kitty.conf` | `include` de los colores (la transparencia ahora viene de la paleta) · JetBrains Mono Nerd Font **10** · márgenes **8** · cursor línea · pestañas abajo (powerline) · sin pitido · copiar al seleccionar · `shell /usr/bin/zsh` |
 | `~/.zshrc` | Historial, autocompletado, alias (`dot`, `ls`, `ll`, `tree`, `cat`, `ff`), zoxide, fzf, starship, plugins y fastfetch al abrir |
 | `~/.config/hypr/hyprpaper.conf` | Fondo por pantalla; lo reescribe Super + W |
 | `~/.config/fastfetch/config.jsonc` · `logo.txt` | Logo **SnapLabs** (hexágono con `< rayo >` y grafo de nodos) a la izquierda; nombre SNAPLABS, lema y ficha a la derecha |
@@ -225,6 +234,8 @@ yay --save --removemake
 | Config Hyprland: monitores, capturas, autoarranque (config **home**) | Carpeta personal con la configuración de Hyprland |
 | Tema Nord + bloqueo y suspension OK | Paleta central completa, Waybar/mako/hyprlock/wlogout, tapa y NVIDIA al despertar |
 
+> Automáticos: snap-pac crea un par pre/post en cada `pacman`/`yay` (p. ej. 93/94 actualización, 95/96 Steam).
+
 > Comprueba cuáles creaste realmente con `sudo snapper list`.
 
 ## Pendiente (opcional)
@@ -235,7 +246,6 @@ yay --save --removemake
 - Color de la sombra de las ventanas desde la paleta.
 - Fechas en español (bloqueo y Waybar).
 - Dock estilo Mac (nwg-dock-hyprland).
-- Temas Nord para VS Code, Chrome y Discord.
 - Fondo de pantalla que combine con Nord.
 - Agente SSH para no escribir la passphrase en cada `push`.
 - Revisar huérfanos de vez en cuando: `pacman -Qdt` → borrar con `sudo pacman -Rns $(pacman -Qdtq)`.

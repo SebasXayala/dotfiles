@@ -124,7 +124,7 @@ Tiempos en `~/.config/hypr/hypridle.conf` · diseño del bloqueo en `~/.config/h
 | Ctrl + Shift + A → M / L / 1 | Más / menos transparencia / opaco (solo esa ventana, temporal) |
 | Ctrl + Shift + F5 | Recargar la configuración de kitty |
 
-**Configuración:** fuente JetBrains Mono Nerd Font 11 · transparencia desde la paleta (`OPACITY`) · márgenes 12 · cursor línea · pestañas abajo · shell zsh.
+**Configuración:** fuente JetBrains Mono Nerd Font 10 · transparencia desde la paleta (`OPACITY`) · márgenes 8 · cursor línea · pestañas abajo · shell zsh.
 
 ---
 
@@ -208,7 +208,8 @@ Orden: **izquierda** ⬢ · app activa · escritorios — **derecha** `‹` caj�
 
 | Acción | Cómo |
 |---|---|
-| Abrir app | Super + R → escribir nombre → Enter (Esc para cancelar) |
+| Abrir app | Super + R (o clic en ⬢) → escribir nombre → Enter (Esc para cancelar) |
+| Tema del lanzador | `~/.config/hypr/hyprtoolkit.conf` (colores desde la paleta) · tras editarlo: `pkill hyprlauncher` |
 | Cerrar notificación | Clic sobre ella |
 | Cerrar todas | `makoctl dismiss -a` |
 | Recuperar la última cerrada | `makoctl restore` |
@@ -347,7 +348,27 @@ Orden: **izquierda** ⬢ · app activa · escritorios — **derecha** `‹` caj�
 
 ---
 
-## 14. neovim (lo mínimo)
+## 14. Juegos (Steam)
+
+| Acción | Cómo |
+|---|---|
+| Abrir Steam | Super + R → `steam` (la primera vez descarga ~300 MB sin mostrar ventana; ver avance: `tail -f ~/.local/share/Steam/logs/bootstrap_log.txt`) |
+| Usar la RTX 3050 en un juego | Clic derecho en el juego → Propiedades → Opciones de lanzamiento → `prime-run %command%` (**en cada juego nuevo**) |
+| Comprobar que usa la RTX | Con el juego abierto: `nvidia-smi` → el juego aparece en la lista de procesos |
+| Proton | Configuración → Compatibilidad → *Default (Proton Experimental)* — ya viene activo |
+| Forzar Proton en un juego nativo | Propiedades → Compatibilidad → marcar y elegir Proton Experimental |
+| ¿Funciona un juego? | protondb.com (Platinum/Gold = bien) · multijugador: areweanticheatyet.com |
+
+**Mi biblioteca:**
+- ✅ Funcionan: Beyond: Two Souls · Blasphemous · Cities: Skylines · Don't Starve Together · God of War Ragnarök · Grounded 2 · HELLDIVERS 2 · No Man's Sky · Phasmophobia · Project Zomboid · Red Dead Redemption 2 · STAR WARS Jedi: Fallen Order · Stardew Valley · Super Woden: Rally Edge · STAR WARS Battlefront II (campaña; multijugador: revisar protondb) · War Thunder (nativo, gratis en Steam)
+- ❌ No funcionan (antitrampas bloquea Linux, ni siquiera la campaña): Arena Breakout: Infinite · Battlefield 1 · Battlefield 6 · Rainbow Six Siege
+- Diablo II/III/IV: funcionan (Steam con Proton, o Battle.net con Lutris)
+
+> En NVIDIA, los juegos DirectX 12 rinden algo menos que en Windows (5–20 %); usar DLSS/FSR si van justos.
+
+---
+
+## 15. neovim (lo mínimo)
 
 | Tecla | Acción |
 |---|---|
