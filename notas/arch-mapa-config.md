@@ -52,7 +52,7 @@ generated/ · mako/config · starship.toml   ← se crean solos, NUNCA editarlos
 
 | Herramienta | Cómo recibe los colores | Archivo generado (no tocar) |
 |---|---|---|
-| Hyprland (bordes, opacidad, blur) | `dofile(...colors.lua)` en `hyprland.lua` | `theme/generated/colors.lua` |
+| Hyprland (bordes, sombra, opacidad, blur) | `dofile(...colors.lua)` en `hyprland.lua` | `theme/generated/colors.lua` |
 | Waybar | `@import` en `style.css` | `theme/generated/colors.css` |
 | wlogout (menú de apagado) | `@import` en su `style.css` | `theme/generated/colors.css` |
 | hyprlock (bloqueo) | `source =` en `hyprlock.conf` | `theme/generated/colors.conf` |
@@ -66,7 +66,6 @@ generated/ · mako/config · starship.toml   ← se crean solos, NUNCA editarlos
 
 | Qué | Dónde |
 |---|---|
-| Color de la sombra de las ventanas | `hyprland.lua` → `decoration` → `shadow` (fijo `0xee1a1a1a`) |
 | Transparencia del fondo y botones de wlogout | `wlogout/style.css` (`alpha(@bg, 0.55)`, `alpha(@surface, 0.85)`) |
 | Desenfoque y brillo del fondo del bloqueo | `hyprlock.conf` → `background` (`blur_passes`, `brightness`) |
 | Colores del logo de fastfetch | `fastfetch/config.jsonc` → `logo.color` (usa nombres ANSI: cyan, blue…) |

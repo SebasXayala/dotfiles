@@ -148,9 +148,9 @@ hl.config({
 
         shadow = {
             enabled      = true,
-            range        = 4,
+            range        = 24,
             render_power = 3,
-            color        = 0xee1a1a1a,
+            color        = "rgba(" .. theme.bg_alt .. "ee)",
         },
 
         blur = {
