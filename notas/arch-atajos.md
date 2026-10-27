@@ -122,6 +122,11 @@ Tiempos en `~/.config/hypr/hypridle.conf`.
 
 ## 3b. zsh, Starship y herramientas
 
+**Prompt (Starship):** `⬢ snaplabs` › carpeta › rama y cambios de git › Python/Node › tiempo del comando (si pasa de 2 s). La flecha `❯` se pone **roja** si el último comando falló. Configuración: `~/.config/starship.toml`.
+
+**fastfetch al abrir:** logo SnapLabs + ficha del equipo. Configuración: `~/.config/fastfetch/config.jsonc` y `logo.txt`. Verlo de nuevo: `ff`.
+
+
 | Atajo / comando | Acción |
 |---|---|
 | → (flecha derecha) | Aceptar la sugerencia gris del historial |
@@ -206,7 +211,7 @@ Orden: escritorios · ventana activa · hora · CPU · RAM · temperatura · GPU
 
 | Acción | Cómo |
 |---|---|
-| Cambiar colores | Editar **`~/.config/theme/palette.sh`** |
+| Cambiar colores y transparencias | Editar **`~/.config/theme/palette.sh`** (paleta actual: Nord) |
 | Aplicar los cambios | `~/.config/theme/apply.sh` (regenera y recarga todo) |
 | Estructura de kitty | `~/.config/kitty/kitty.conf` (debajo de la línea `include`) |
 | Fondo de pantalla | Imágenes en `~/Pictures/Wallpapers` (nombres **sin espacios ni comas**) · Super + W rota · probar al momento: `hyprctl hyprpaper wallpaper "eDP-1,$HOME/Pictures/Wallpapers/x.jpg"` |
@@ -216,6 +221,18 @@ Orden: escritorios · ventana activa · hora · CPU · RAM · temperatura · GPU
 | Abrir todas las configs en VS Code | `code ~/.config` |
 
 > `~/.config/theme/generated/` se crea solo: no editar.
+
+**Transparencias en `palette.sh`** (1.0 = sólido; números más bajos = más transparente):
+
+| Variable | Controla | Valor actual |
+|---|---|---|
+| `OPACITY` | Terminal | 0.50 |
+| `BAR_OPACITY` | Waybar | 0.45 |
+| `WIN_OPACITY_ACTIVE` | Ventana con foco | 1.0 |
+| `WIN_OPACITY_INACTIVE` | Ventanas sin foco | 0.60 |
+| `BLUR` / `BLUR_SIZE` / `BLUR_PASSES` | Desenfoque detrás de lo transparente | true / 12 / 3 |
+
+> Tras cambiar `OPACITY`, abre una terminal nueva (kitty solo la aplica al crear la ventana).
 
 ---
 

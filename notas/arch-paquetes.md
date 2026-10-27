@@ -161,18 +161,20 @@ Las de **compilación** (meson, ninja, scdoc, python-tqdm) y `wlogout-debug` ya 
 | `/etc/mkinitcpio.conf` | `grub-btrfs-overlayfs` añadido al final de `HOOKS` (arrancar snapshots) |
 | `/etc/default/grub` | `GRUB_TOP_LEVEL="/boot/vmlinuz-linux"` (kernel principal por defecto) |
 | BIOS (efibootmgr) | Borradas entradas viejas Boot0000/0001/0002 (Windows, GRUB, Ubuntu). Quedan 0008 (disco) y 9999 (USB) |
-| `~/.config/hypr/hyprland.lua` | Carga la paleta (`local theme = dofile(...)`) y la usa en los bordes · autoarranque de polkit, hypridle, mako, waybar y hyprpaper · `fileManager = "kitty -e yazi"` · `menu = "hyprlauncher"` · monitores (HDMI-A-1 izquierda 100 Hz, eDP-1 derecha 144 Hz escala 1.2) · atajos: Super+T terminal, Super+Q cerrar, Super+F maximizar, Super+Shift+F pantalla completa, Super+W siguiente fondo, Super+L bloquear, Super+Shift+flechas mover, Super+Ctrl+flechas tamaño, capturas (Print, Shift+Print, Super+Shift+S) · eliminado el atajo original Super+Shift+S (mover a espacio especial) |
+| `~/.config/hypr/hyprland.lua` | Carga la paleta (`local theme = dofile(...)`) y la usa en los bordes · autoarranque de polkit, hypridle, mako, waybar y hyprpaper · `fileManager = "kitty -e yazi"` · `menu = "hyprlauncher"` · `decoration`: `active_opacity`, `inactive_opacity` y `blur` leen la paleta (`theme.*`) · monitores (HDMI-A-1 izquierda 100 Hz, eDP-1 derecha 144 Hz escala 1.2) · atajos: Super+T terminal, Super+Q cerrar, Super+F maximizar, Super+Shift+F pantalla completa, Super+W siguiente fondo, Super+L bloquear, Super+Shift+flechas mover, Super+Ctrl+flechas tamaño, capturas (Print, Shift+Print, Super+Shift+S) · eliminado el atajo original Super+Shift+S (mover a espacio especial) |
 | `~/.config/hypr/hyprlock.conf` | Copiado del ejemplo `/usr/share/hypr/hyprlock.conf` |
 | `~/.config/hypr/hypridle.conf` | Copiado del ejemplo: atenuar 2,5 min · bloquear 5 min · apagar pantalla 5,5 min · suspender 30 min |
-| `~/.config/theme/palette.sh` | **Paleta central** (base Catppuccin Mocha). El único archivo de colores que se edita |
-| `~/.config/theme/apply.sh` | Genera `generated/` (Hyprland, Waybar, hyprlock, kitty) y `mako/config`; recarga todo |
+| `~/.config/theme/palette.sh` | **Paleta central: Nord**. Colores y transparencias de todo el escritorio: `OPACITY` (terminal 0.50), `BAR_OPACITY` (Waybar 0.45), `WIN_OPACITY_ACTIVE/INACTIVE` (1.0 / 0.60), `BLUR`, `BLUR_SIZE` (12), `BLUR_PASSES` (3) |
+| `~/.config/theme/apply.sh` | Genera `generated/` (Hyprland, Waybar, hyprlock, kitty) y `mako/config` con colores **y transparencias/blur**; recarga todo |
 | `~/.config/waybar/config.jsonc` · `style.css` | Módulos: escritorios, ventana activa, reloj, CPU, RAM, temperatura (k10temp), GPU, ventiladores, bandeja, Bluetooth, brillo, volumen, red, perfil de energía, batería y apagado (wlogout). El estilo importa `colors.css` de la paleta |
 | `~/.config/waybar/scripts/gpu.sh` | Uso, temperatura y VRAM de la RTX 3050 (`nvidia-smi`) |
 | `~/.config/waybar/scripts/fans.sh` | RPM de los ventiladores; clic alterna máximo (`pwm1_enable=0`) / automático (`2`) |
 | `/etc/udev/rules.d/99-hp-fan.rules` | Permite al grupo `wheel` escribir `pwm1_enable` sin sudo. **Fuera de home: no está en dotfiles, recrear si reinstalas** |
-| `~/.config/kitty/kitty.conf` | `include` de los colores · JetBrains Mono Nerd Font 11 · transparencia 0.90 · márgenes 12 · cursor línea · pestañas abajo (powerline) · sin pitido · copiar al seleccionar · `shell /usr/bin/zsh` |
+| `~/.config/kitty/kitty.conf` | `include` de los colores (la transparencia ahora viene de la paleta) · JetBrains Mono Nerd Font 11 · márgenes 12 · cursor línea · pestañas abajo (powerline) · sin pitido · copiar al seleccionar · `shell /usr/bin/zsh` |
 | `~/.zshrc` | Historial, autocompletado, alias (`dot`, `ls`, `ll`, `tree`, `cat`, `ff`), zoxide, fzf, starship, plugins y fastfetch al abrir |
 | `~/.config/hypr/hyprpaper.conf` | Fondo por pantalla; lo reescribe Super + W |
+| `~/.config/fastfetch/config.jsonc` · `logo.txt` | Logo **SnapLabs** (hexágono con `< rayo >` y grafo de nodos) a la izquierda; nombre SNAPLABS, lema y ficha a la derecha |
+| `~/.config/starship.toml` | Prompt en bloques Nord: `⬢ snaplabs` → carpeta → git → Python/Node/tiempo; flecha roja si falla |
 | `~/.config/hypr/scripts/wallpaper-next.sh` | Pasa a la siguiente imagen de `~/Pictures/Wallpapers` y la guarda |
 | `~/.dotfiles/info/exclude` | Ignora en git `theme/generated/` y `mako/config` (se generan solos) |
 | `~/.config/mako/config.base` | Estructura de mako (timeout 3000 ms); `config` se genera solo |
@@ -211,9 +213,10 @@ El kernel ya soporta el Victus 15-fb0xxx (placa 8A3D).
 - Luz del teclado en `hypridle.conf`: verificar el nombre con `brightnessctl -l | grep -i kbd`.
 - `gnome-keyring`: guardar contraseñas de Chrome/Discord cifradas.
 - `noto-fonts-emoji`: emojis en web y Discord (verificar si está con `pacman -Q noto-fonts-emoji`).
-- fastfetch: elegir diseño (planeta, imagen, GIF o logo de Arch compacto).
-- Starship: personalizar el prompt.
-- Conectar hyprlock y la transparencia de kitty a la paleta.
+- Conectar hyprlock y wlogout a la paleta.
+- Blur también para la Waybar (regla de capa en Hyprland).
+- Temas Nord para VS Code, Chrome y Discord.
+- Fondo de pantalla que combine con Nord.
 - Agente SSH para no escribir la passphrase en cada `push`.
 - Revisar huérfanos de vez en cuando: `pacman -Qdt` → borrar con `sudo pacman -Rns $(pacman -Qdtq)`.
 - Que yay borre solas las dependencias de compilación: `yay --save --removemake`.
