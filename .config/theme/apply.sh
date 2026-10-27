@@ -1,22 +1,37 @@
 #!/usr/bin/env bash
-# Lee palette.sh y genera los colores para cada programa.
+# Lee palette.sh y genera colores y transparencias para cada programa.
 set -euo pipefail
 DIR="$HOME/.config/theme"
 OUT="$DIR/generated"
 source "$DIR/palette.sh"
 mkdir -p "$OUT"
 
+# Valores por defecto si la paleta no los define
+OPACITY="${OPACITY:-0.90}"
+BAR_OPACITY="${BAR_OPACITY:-0.85}"
+WIN_OPACITY_ACTIVE="${WIN_OPACITY_ACTIVE:-1.0}"
+WIN_OPACITY_INACTIVE="${WIN_OPACITY_INACTIVE:-1.0}"
+BLUR="${BLUR:-true}"
+BLUR_SIZE="${BLUR_SIZE:-6}"
+BLUR_PASSES="${BLUR_PASSES:-2}"
+
 VARS=(BG BG_ALT SURFACE SURFACE1 SURFACE2 OVERLAY FG FG_DIM ACCENT ACCENT2 OK WARN URGENT RED GREEN YELLOW BLUE PINK TEAL)
 
 # Waybar (CSS)
 { echo "/* Generado por apply.sh — no editar */"
   for v in "${VARS[@]}"; do printf '@define-color %s #%s;\n' "${v,,}" "${!v}"; done
+  printf '@define-color bar_bg alpha(#%s, %s);\n' "$BG" "$BAR_OPACITY"
 } > "$OUT/colors.css"
 
 # Hyprland (Lua)
 { echo "-- Generado por apply.sh — no editar"
   echo "return {"
   for v in "${VARS[@]}"; do printf '  %s = "%s",\n' "${v,,}" "${!v}"; done
+  printf '  win_opacity_active = %s,\n' "$WIN_OPACITY_ACTIVE"
+  printf '  win_opacity_inactive = %s,\n' "$WIN_OPACITY_INACTIVE"
+  printf '  blur = %s,\n' "$BLUR"
+  printf '  blur_size = %s,\n' "$BLUR_SIZE"
+  printf '  blur_passes = %s,\n' "$BLUR_PASSES"
   echo "}"
 } > "$OUT/colors.lua"
 
@@ -30,6 +45,8 @@ cat > "$OUT/kitty-colors.conf" <<EOF
 # Generado por apply.sh — no editar
 foreground #$FG
 background #$BG
+background_opacity $OPACITY
+transparent_background_colors #$BG_ALT@$OPACITY #$SURFACE@$OPACITY
 selection_foreground #$BG
 selection_background #$ACCENT
 cursor #$ACCENT

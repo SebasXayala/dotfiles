@@ -1,7 +1,7 @@
 @import url("../theme/generated/colors.css");
 
 * { font-family: "Noto Sans", "Symbols Nerd Font"; font-size: 13px; border: none; border-radius: 0; min-height: 0; }
-window#waybar { background: alpha(@bg, 0.85); color: @fg; }
+window#waybar { background: @bar_bg; color: @fg; }
 
 #workspaces button { padding: 0 8px; margin: 4px 2px; color: @fg_dim; background: transparent; border-radius: 8px; }
 #workspaces button:hover  { background: @surface; }
