@@ -38,6 +38,7 @@ OPACITY="0.50"                # terminal
 BAR_OPACITY="0.45"            # Waybar
 WIN_OPACITY_ACTIVE="1.0"      # ventana activa
 WIN_OPACITY_INACTIVE="0.60"   # ventanas sin foco
+NOTIF_OPACITY="0.95"          # notificaciones (mako)
 
 # --- Desenfoque detrás de lo transparente ---
 BLUR="true"

@@ -77,13 +77,16 @@ EOF
 
 # mako: colores + tu estructura (config.base) -> config
 MAKO="$HOME/.config/mako"
+NOTIF_OPACITY="${NOTIF_OPACITY:-0.85}"
+NA=$(printf '%02x' "$(awk -v o="$NOTIF_OPACITY" 'BEGIN{printf "%d", o*255}')")
 if [ -f "$MAKO/config.base" ]; then
   {
     echo "# Generado por apply.sh — edita config.base, no este archivo"
-    echo "background-color=#$BG"
+    echo "background-color=#$BG$NA"
     echo "text-color=#$FG"
     echo "border-color=#$ACCENT"
     echo "progress-color=over #$SURFACE"
+    echo "format=<span size=\"x-small\" foreground=\"#$FG_DIM\">%a</span>\\n<span size=\"large\"><b>%s</b></span>\\n<span foreground=\"#$FG_DIM\">%b</span>"
     echo
     cat "$MAKO/config.base"
     echo
@@ -91,6 +94,7 @@ if [ -f "$MAKO/config.base" ]; then
     echo "border-color=#$OVERLAY"
     echo
     echo "[urgency=critical]"
+    echo "border-size=2"
     echo "border-color=#$URGENT"
     echo "default-timeout=0"
   } > "$MAKO/config"

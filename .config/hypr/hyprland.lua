@@ -389,9 +389,9 @@ hl.window_rule({
 })
 
 -- Capturas de pantalla (grim + slurp)
-hl.bind("Print", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy && notify-send "Captura" "Zona copiada al portapapeles"'))
-hl.bind("SHIFT + Print", hl.dsp.exec_cmd('mkdir -p ~/Pictures/Screenshots && grim ~/Pictures/Screenshots/$(date +%F_%H-%M-%S).png && notify-send "Captura" "Guardada en ~/Pictures/Screenshots"'))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy && notify-send "Captura" "Zona copiada al portapapeles"'))
+hl.bind("Print", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy && notify-send -a Sistema -i camera-photo "Captura" "Zona copiada al portapapeles"'))
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd('mkdir -p ~/Pictures/Screenshots && grim ~/Pictures/Screenshots/$(date +%F_%H-%M-%S).png && notify-send -a Sistema -i camera-photo "Captura" "Guardada en ~/Pictures/Screenshots"'))
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy && notify-send -a Sistema -i camera-photo "Captura" "Zona copiada al portapapeles"'))
 
 -- ===== Atajos personalizados =====
 -- Pantalla completa y bloqueo

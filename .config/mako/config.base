@@ -1,12 +1,20 @@
 # ===== Estructura de mako: EDITA ESTE ARCHIVO =====
-# Los colores se añaden solos desde la paleta al ejecutar apply.sh
+# Colores, transparencia y formato salen de palette.sh al ejecutar apply.sh
 # (no edites ~/.config/mako/config, se sobrescribe)
 font=Noto Sans 11
-width=360
-height=150
-margin=12
-padding=12
-border-size=2
-border-radius=10
-default-timeout=5000
+width=380
+height=160
+margin=14
+padding=14,16
+border-size=0
+border-radius=16
+icons=1
+max-icon-size=40
+icon-location=left
+icon-path=/usr/share/icons/WhiteSur-dark:/usr/share/icons/WhiteSur
+markup=1
+text-alignment=left
+max-visible=4
+layer=overlay
 anchor=top-right
+default-timeout=3000

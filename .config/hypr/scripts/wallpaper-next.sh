@@ -3,7 +3,7 @@
 DIR="$HOME/Pictures/Wallpapers"
 STATE="$HOME/.cache/wallpaper-current"
 mapfile -t imgs < <(find "$DIR" -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) | sort)
-[ ${#imgs[@]} -eq 0 ] && { notify-send "Fondo" "No hay imágenes en $DIR"; exit 1; }
+[ ${#imgs[@]} -eq 0 ] && { notify-send -a Sistema -i preferences-desktop-wallpaper "Fondo" "No hay imágenes en $DIR"; exit 1; }
 
 actual=$(cat "$STATE" 2>/dev/null)
 siguiente="${imgs[0]}"
@@ -18,4 +18,4 @@ for m in $(hyprctl monitors -j | jq -r '.[].name'); do
 done
 printf '%s' "$conf" > "$HOME/.config/hypr/hyprpaper.conf"
 echo "$siguiente" > "$STATE"
-notify-send "Fondo" "$(basename "$siguiente")"
+notify-send -a Sistema -i preferences-desktop-wallpaper "Fondo" "$(basename "$siguiente")"
