@@ -125,4 +125,5 @@ hyprctl reload >/dev/null 2>&1 || true
 pkill -SIGUSR2 waybar 2>/dev/null || true
 pkill -SIGUSR1 kitty 2>/dev/null || true
 makoctl reload 2>/dev/null || true
+pkill hyprlauncher 2>/dev/null || true
 echo "Tema aplicado."
