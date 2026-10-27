@@ -411,3 +411,11 @@ hl.bind(mainMod .. " + CTRL + up",    hl.dsp.window.resize({ x = 0,   y = -40, r
 hl.bind(mainMod .. " + CTRL + down",  hl.dsp.window.resize({ x = 0,   y = 40,  relative = true }), { repeating = true })
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallpaper-next.sh"))
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
+
+-- Blur detrás de la Waybar y de las notificaciones (mako)
+hl.layer_rule({
+    name = "blur-barra-y-notificaciones",
+    match = { namespace = "^(waybar|notifications)$" },
+    blur = true,
+    ignore_alpha = 0.2,
+})

@@ -3,35 +3,43 @@
 * { font-family: "Noto Sans", "Symbols Nerd Font"; font-size: 13px; border: none; border-radius: 0; min-height: 0; }
 window#waybar { background: @bar_bg; color: @fg; }
 
-#workspaces button { padding: 0 8px; margin: 4px 2px; color: @fg_dim; background: transparent; border-radius: 8px; }
-#workspaces button:hover  { background: @surface; }
-#workspaces button.active { background: @accent; color: @bg; }
-#workspaces button.urgent { background: @urgent; color: @bg; }
-#window { padding: 0 10px; color: @fg_dim; }
+tooltip { background: @bg; border: 1px solid @surface2; border-radius: 10px; }
+tooltip label { color: @fg; padding: 4px; }
 
-#clock, #cpu, #memory, #temperature, #custom-gpu, #custom-fans, #tray, #bluetooth, #backlight, #wireplumber, #network, #power-profiles-daemon, #battery, #custom-power {
-  padding: 0 10px; margin: 4px 3px; background: @surface; border-radius: 8px; }
+/* Izquierda: logo, app activa, escritorios */
+#custom-logo { color: @accent; font-size: 16px; padding: 0 8px 0 14px; }
+#window { font-weight: bold; padding: 0 12px 0 4px; }
+#workspaces button { padding: 0 3px; color: @overlay; background: transparent; min-width: 0; box-shadow: none; }
+#workspaces button.active { color: @accent; }
+#workspaces button:hover { background: transparent; color: @fg; }
 
-#clock { color: @accent; font-weight: bold; }
+/* Derecha: iconos limpios */
+#custom-flecha, #tray, #bluetooth, #network, #wireplumber, #battery, #custom-control, #clock { padding: 0 9px; }
+#custom-flecha { color: @fg_dim; }
+#clock { padding-right: 14px; }
+#custom-logo:hover, #custom-control:hover, #custom-flecha:hover { color: @fg; }
+
+/* Cajon de monitores */
+.monitor { padding: 0 5px; margin: 4px 2px; background: @surface; border-radius: 7px; }
 #cpu, #memory { color: @blue; }
-#temperature { color: @teal; }
-#temperature.critical { color: @urgent; }
+#temperature, #custom-fans { color: @teal; }
 #custom-gpu { color: @green; }
-
-#battery.charging, #battery.plugged { color: @ok; }
-#battery.warning:not(.charging) { color: @warn; }
-#battery.critical:not(.charging) { color: @urgent; }
-#network.disconnected { color: @urgent; }
-#wireplumber.muted { color: @overlay; }
-#bluetooth.off, #bluetooth.disabled { color: @overlay; }
-#bluetooth.connected { color: @accent2; }
-
+#temperature.critical, #custom-fans.max { color: @urgent; }
 #power-profiles-daemon.performance { color: @urgent; }
 #power-profiles-daemon.balanced { color: @accent2; }
 #power-profiles-daemon.power-saver { color: @ok; }
 
-#custom-power { color: @urgent; margin-right: 6px; }
-#custom-power:hover { background: @urgent; color: @bg; }
+/* Estados */
+#battery.charging, #battery.plugged { color: @ok; }
+#battery.warning:not(.charging) { color: @warn; }
+#battery.critical:not(.charging) { color: @urgent; }
+#network.disconnected { color: @urgent; }
+#wireplumber.muted, #bluetooth.off, #bluetooth.disabled { color: @overlay; }
 
-#custom-fans     { color: @teal; }
-#custom-fans.max { background: @urgent; color: @bg; }
+/* Separacion de los monitores (por nombre de modulo) */
+#cpu, #memory, #temperature, #custom-gpu, #custom-fans, #power-profiles-daemon {
+  padding: 0 5px;
+  margin: 4px 2px;
+  background: @surface;
+  border-radius: 7px;
+}

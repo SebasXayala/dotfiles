@@ -1,105 +1,58 @@
 {
-  "layer": "top",
-  "position": "top",
-  "height": 34,
-  "spacing": 4,
+ "layer": "top", "position": "top", "height": 28, "spacing": 0,
+ "modules-left": ["custom/logo", "hyprland/window", "hyprland/workspaces"],
+ "modules-center": [],
+ "modules-right": ["group/monitores", "tray", "bluetooth", "network", "wireplumber", "battery", "custom/control", "clock"],
 
-  "modules-left": ["hyprland/workspaces", "hyprland/window"],
-  "modules-center": ["clock"],
-  "modules-right": [
-    "cpu", "memory", "temperature", "custom/gpu", "custom/fans",
-    "tray", "bluetooth", "backlight", "wireplumber", "network",
-    "power-profiles-daemon", "battery", "custom/power"
-  ],
+ "custom/logo": { "format": "\u2b22", "tooltip-format": "Aplicaciones", "on-click": "hyprlauncher" },
+ "hyprland/window": { "format": "{class}", "max-length": 30, "separate-outputs": true },
+ "hyprland/workspaces": {
+  "format": "{icon}",
+  "format-icons": { "active": "\u25cf", "default": "\u25cb" },
+  "persistent-workspaces": { "*": 3 },
+  "on-click": "activate"
+ },
 
-  "hyprland/workspaces": { "format": "{name}", "on-click": "activate" },
+ "group/monitores": {
+  "orientation": "horizontal",
+  "drawer": { "transition-duration": 300, "transition-left-to-right": false, "children-class": "monitor" },
+  "modules": ["custom/flecha", "cpu", "memory", "temperature", "custom/gpu", "custom/fans", "power-profiles-daemon"]
+ },
+ "custom/flecha": { "format": "\u2039", "tooltip-format": "Monitores del sistema" },
+ "cpu": { "format": "\udb83\udee0 {usage}%", "interval": 3 },
+ "memory": { "format": "\udb80\udf5b {percentage}%", "interval": 5, "tooltip-format": "RAM: {used:0.1f} / {total:0.1f} GiB" },
+ "temperature": {
+  "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon", "input-filename": "temp1_input",
+  "critical-threshold": 85, "format": "\udb81\udd0f {temperatureC}\u00b0", "tooltip-format": "CPU: {temperatureC}\u00b0C"
+ },
+ "custom/gpu": { "exec": "~/.config/waybar/scripts/gpu.sh", "return-type": "json", "interval": 5 },
+ "custom/fans": { "exec": "~/.config/waybar/scripts/fans.sh", "return-type": "json", "interval": 3, "signal": 8, "on-click": "~/.config/waybar/scripts/fans.sh toggle" },
+ "power-profiles-daemon": {
+  "format": "{icon}", "tooltip-format": "Perfil: {profile}\nClic para cambiar",
+  "format-icons": { "default": "\udb83\udf85", "performance": "\udb81\udcc5", "balanced": "\udb83\udf85", "power-saver": "\udb83\udf86" }
+ },
 
-  "hyprland/window": { "format": "{title}", "max-length": 50, "separate-outputs": true },
-
-  "clock": {
-    "format": "{:%H:%M}",
-    "format-alt": "{:%A %d/%m/%Y  %H:%M}",
-    "tooltip-format": "<tt>{calendar}</tt>"
-  },
-
-  "cpu": { "format": "󰻠 {usage}%", "interval": 3 },
-
-  "memory": {
-    "format": "󰍛 {percentage}%",
-    "interval": 5,
-    "tooltip-format": "RAM: {used:0.1f} / {total:0.1f} GiB\nSwap (zram): {swapUsed:0.1f} / {swapTotal:0.1f} GiB"
-  },
-
-  "temperature": {
-    "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
-    "input-filename": "temp1_input",
-    "critical-threshold": 85,
-    "format": "{icon} {temperatureC}°C",
-    "format-critical": "󰸁 {temperatureC}°C",
-    "format-icons": ["󱃃", "󰔏", "󱃂"],
-    "tooltip-format": "CPU: {temperatureC}°C"
-  },
-
-  "custom/gpu": {
-    "exec": "~/.config/waybar/scripts/gpu.sh",
-    "return-type": "json",
-    "interval": 5
-  },
-
-  "custom/fans": {
-    "exec": "~/.config/waybar/scripts/fans.sh",
-    "return-type": "json",
-    "interval": 3,
-    "signal": 8,
-    "on-click": "~/.config/waybar/scripts/fans.sh toggle"
-  },
-
-  "tray": { "spacing": 8 },
-
-  "bluetooth": {
-    "format": "󰂯",
-    "format-disabled": "󰂲",
-    "format-off": "󰂲",
-    "format-connected": "󰂱 {device_alias}",
-    "tooltip-format": "Bluetooth: {status}",
-    "on-click": "kitty -e bluetoothctl"
-  },
-
-  "backlight": { "format": "{icon} {percent}%", "format-icons": ["󰃞", "󰃟", "󰃠"] },
-
-  "wireplumber": {
-    "format": "{icon} {volume}%",
-    "format-muted": "󰝟 Mute",
-    "format-icons": ["󰕿", "󰖀", "󰕾"],
-    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-  },
-
-  "network": {
-    "format-wifi": "󰤨 {essid}",
-    "format-ethernet": "󰈀 Cable",
-    "format-disconnected": "󰤭 Sin red",
-    "tooltip-format": "{ifname}: {ipaddr}",
-    "on-click": "kitty -e nmtui"
-  },
-
-  "power-profiles-daemon": {
-    "format": "{icon}",
-    "tooltip-format": "Perfil: {profile}\nClic para cambiar",
-    "format-icons": { "default": "󰾅", "performance": "󰓅", "balanced": "󰾅", "power-saver": "󰾆" }
-  },
-
-  "battery": {
-    "states": { "warning": 30, "critical": 15 },
-    "format": "{icon} {capacity}%",
-    "format-charging": "󰂄 {capacity}%",
-    "format-plugged": "󰚥 {capacity}%",
-    "format-icons": ["󰁺", "󰁼", "󰁾", "󰂀", "󰁹"],
-    "tooltip-format": "{timeTo}"
-  },
-
-  "custom/power": {
-    "format": "⏻",
-    "tooltip-format": "Apagar / reiniciar / bloquear",
-    "on-click": "wlogout"
-  }
+ "tray": { "spacing": 10, "icon-size": 15 },
+ "bluetooth": {
+  "format": "\udb80\udcaf", "format-disabled": "\udb80\udcb2", "format-off": "\udb80\udcb2", "format-connected": "\udb80\udcb1",
+  "tooltip-format": "Bluetooth: {status}", "tooltip-format-connected": "{device_alias}", "on-click": "kitty -e bluetoothctl"
+ },
+ "network": {
+  "format-wifi": "\udb81\udda9", "format-ethernet": "\udb80\ude00", "format-disconnected": "\udb82\udd2d",
+  "tooltip-format-wifi": "{essid} \u00b7 {signalStrength}%\n{ipaddr}", "tooltip-format-ethernet": "Cable \u00b7 {ipaddr}",
+  "on-click": "kitty -e nmtui"
+ },
+ "wireplumber": {
+  "format": "{icon}", "format-muted": "\udb81\udf5f", "format-icons": ["\udb81\udd7f", "\udb81\udd80", "\udb81\udd7e"],
+  "tooltip-format": "Volumen: {volume}%", "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle", "scroll-step": 5
+ },
+ "battery": {
+  "states": { "warning": 30, "critical": 15 },
+  "format": "{icon}", "format-warning": "{icon} {capacity}%", "format-critical": "{icon} {capacity}%",
+  "format-charging": "\udb80\udc84", "format-plugged": "\udb81\udea5",
+  "format-icons": ["\udb80\udc7a", "\udb80\udc7c", "\udb80\udc7e", "\udb80\udc80", "\udb80\udc79"],
+  "tooltip-format": "Bater\u00eda: {capacity}% \u00b7 {timeTo}"
+ },
+ "custom/control": { "format": "\uf1de", "tooltip-format": "Apagar, reiniciar, bloquear", "on-click": "wlogout" },
+ "clock": { "format": "{:%a %d %b   %H:%M}", "tooltip-format": "<tt>{calendar}</tt>" }
 }
