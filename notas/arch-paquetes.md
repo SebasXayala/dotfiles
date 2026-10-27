@@ -70,7 +70,8 @@ Equipo: HP Victus 15-fb0xxx · Ryzen 5 5600H · RTX 3050 Laptop 4 GB · 16 GB RA
 | kitty | Terminal (Super + T) | oficial | elegido |
 | hyprlauncher | Lanzador de apps (Super + R) | oficial | elegido |
 | waybar | Barra superior (escritorios, hora, batería, red, volumen) | oficial | elegido |
-| wlogout | Menú de apagado / reinicio / bloqueo (botón ⏻ de Waybar) | AUR | elegido |
+| wlogout | Menú de apagado / reinicio / bloqueo (botón de ajustes de Waybar) | AUR | elegido |
+| whitesur-icon-theme | Íconos estilo macOS (notificaciones de mako) | AUR | elegido |
 | mako | Notificaciones | oficial | elegido |
 | libnotify | Comando `notify-send` | oficial | elegido |
 | noto-fonts | Fuente base para el texto | oficial | elegido |
@@ -115,6 +116,7 @@ Equipo: HP Victus 15-fb0xxx · Ryzen 5 5600H · RTX 3050 Laptop 4 GB · 16 GB RA
 | fzf | Búsqueda difusa | oficial | complemento de yazi |
 | zoxide | Saltar rápido entre carpetas | oficial | complemento de yazi |
 | imagemagick | Vista previa de más formatos de imagen | oficial | complemento de yazi |
+| resvg | Vista previa de imágenes SVG | oficial | complemento de yazi |
 
 ## 9. Aplicaciones
 
@@ -151,7 +153,7 @@ Las de **compilación** (meson, ninja, scdoc, python-tqdm) y `wlogout-debug` ya 
 
 ## Servicios activados al arranque
 
-**Sistema:** NetworkManager · bluetooth · power-profiles-daemon · ufw · fstrim.timer · grub-btrfsd · paccache.timer
+**Sistema:** NetworkManager · bluetooth · power-profiles-daemon · ufw · fstrim.timer · grub-btrfsd · paccache.timer · nvidia-suspend · nvidia-resume · nvidia-hibernate
 **Al iniciar Hyprland** (`hl.on("hyprland.start")` en `hyprland.lua`): hyprpolkitagent · hypridle · mako · waybar · hyprpaper
 
 ## Cambios de configuración hechos a mano
@@ -161,12 +163,13 @@ Las de **compilación** (meson, ninja, scdoc, python-tqdm) y `wlogout-debug` ya 
 | `/etc/mkinitcpio.conf` | `grub-btrfs-overlayfs` añadido al final de `HOOKS` (arrancar snapshots) |
 | `/etc/default/grub` | `GRUB_TOP_LEVEL="/boot/vmlinuz-linux"` (kernel principal por defecto) |
 | BIOS (efibootmgr) | Borradas entradas viejas Boot0000/0001/0002 (Windows, GRUB, Ubuntu). Quedan 0008 (disco) y 9999 (USB) |
-| `~/.config/hypr/hyprland.lua` | Carga la paleta (`local theme = dofile(...)`) y la usa en los bordes · autoarranque de polkit, hypridle, mako, waybar y hyprpaper · `fileManager = "kitty -e yazi"` · `menu = "hyprlauncher"` · `decoration`: `active_opacity`, `inactive_opacity` y `blur` leen la paleta (`theme.*`) · monitores (HDMI-A-1 izquierda 100 Hz, eDP-1 derecha 144 Hz escala 1.2) · atajos: Super+T terminal, Super+Q cerrar, Super+F maximizar, Super+Shift+F pantalla completa, Super+W siguiente fondo, Super+L bloquear, Super+Shift+flechas mover, Super+Ctrl+flechas tamaño, capturas (Print, Shift+Print, Super+Shift+S) · eliminado el atajo original Super+Shift+S (mover a espacio especial) |
-| `~/.config/hypr/hyprlock.conf` | Copiado del ejemplo `/usr/share/hypr/hyprlock.conf` |
+| `~/.config/hypr/hyprland.lua` | Carga la paleta (`local theme = dofile(...)`) y la usa en los bordes · autoarranque de polkit, hypridle, mako, waybar y hyprpaper · `fileManager = "kitty -e yazi"` · `menu = "hyprlauncher"` · `decoration`: `active_opacity`, `inactive_opacity` y `blur` leen la paleta (`theme.*`) · monitores (HDMI-A-1 izquierda 100 Hz, eDP-1 derecha 144 Hz escala 1.2) · atajos: Super+T terminal, Super+Q cerrar, Super+F maximizar, Super+Shift+F pantalla completa, Super+W siguiente fondo, Super+L bloquear, Super+Shift+flechas mover, Super+Ctrl+flechas tamaño, capturas (Print, Shift+Print, Super+Shift+S) · eliminado el atajo original Super+Shift+S (mover a espacio especial) · regla de capa `blur` para `waybar`, `notifications` y `logout_dialog` · **tapa**: al cerrar con HDMI apaga eDP-1, al abrir `hyprctl reload` la enciende |
+| `~/.config/hypr/hyprlock.conf` | Bloqueo estilo Mac: escritorio difuminado, hora grande, fecha, contraseña en píldora (amarilla comprobando, roja si falla), `⬢ snaplabs`. Colores con `source = …/generated/colors.conf` |
 | `~/.config/hypr/hypridle.conf` | Copiado del ejemplo: atenuar 2,5 min · bloquear 5 min · apagar pantalla 5,5 min · suspender 30 min |
-| `~/.config/theme/palette.sh` | **Paleta central: Nord**. Colores y transparencias de todo el escritorio: `OPACITY` (terminal 0.50), `BAR_OPACITY` (Waybar 0.45), `WIN_OPACITY_ACTIVE/INACTIVE` (1.0 / 0.60), `BLUR`, `BLUR_SIZE` (12), `BLUR_PASSES` (3) |
-| `~/.config/theme/apply.sh` | Genera `generated/` (Hyprland, Waybar, hyprlock, kitty) y `mako/config` con colores **y transparencias/blur**; recarga todo |
-| `~/.config/waybar/config.jsonc` · `style.css` | Módulos: escritorios, ventana activa, reloj, CPU, RAM, temperatura (k10temp), GPU, ventiladores, bandeja, Bluetooth, brillo, volumen, red, perfil de energía, batería y apagado (wlogout). El estilo importa `colors.css` de la paleta |
+| `~/.config/theme/palette.sh` | **Paleta central: Nord**. Colores y transparencias de todo el escritorio: `OPACITY` (terminal 0.50), `BAR_OPACITY` (Waybar 0.45), `NOTIF_OPACITY` (mako 0.95), `WIN_OPACITY_ACTIVE/INACTIVE` (1.0 / 0.60), `BLUR`, `BLUR_SIZE` (12), `BLUR_PASSES` (3) |
+| `~/.config/theme/apply.sh` | Genera `generated/` (Hyprland, Waybar/wlogout, hyprlock, kitty), `mako/config` y `starship.toml` con colores **y transparencias/blur**; recarga todo. Mapa completo en `arch-mapa-config.md` |
+| `~/.config/waybar/config.jsonc` · `style.css` | **Barra estilo Mac** (arriba, 28 px). Izquierda: ⬢ (abre el lanzador), app activa, escritorios ●/○. Derecha: cajón `‹` con CPU, RAM, temperatura, GPU, ventiladores y perfil · bandeja · Bluetooth · red · volumen · batería (% solo si baja) · ajustes (wlogout) · fecha y hora. Sin módulo de brillo. El estilo importa `colors.css` |
+| `~/.config/wlogout/layout` · `style.css` | Menú de apagado: 5 botones en fila (Bloquear `l`, Cerrar sesión `e`, Suspender `u`, Reiniciar `r`, Apagar `s`), sin Hibernar (no hay swap). Colores con `@import` de `colors.css` |
 | `~/.config/waybar/scripts/gpu.sh` | Uso, temperatura y VRAM de la RTX 3050 (`nvidia-smi`) |
 | `~/.config/waybar/scripts/fans.sh` | RPM de los ventiladores; clic alterna máximo (`pwm1_enable=0`) / automático (`2`) |
 | `/etc/udev/rules.d/99-hp-fan.rules` | Permite al grupo `wheel` escribir `pwm1_enable` sin sudo. **Fuera de home: no está en dotfiles, recrear si reinstalas** |
@@ -174,10 +177,13 @@ Las de **compilación** (meson, ninja, scdoc, python-tqdm) y `wlogout-debug` ya 
 | `~/.zshrc` | Historial, autocompletado, alias (`dot`, `ls`, `ll`, `tree`, `cat`, `ff`), zoxide, fzf, starship, plugins y fastfetch al abrir |
 | `~/.config/hypr/hyprpaper.conf` | Fondo por pantalla; lo reescribe Super + W |
 | `~/.config/fastfetch/config.jsonc` · `logo.txt` | Logo **SnapLabs** (hexágono con `< rayo >` y grafo de nodos) a la izquierda; nombre SNAPLABS, lema y ficha a la derecha |
-| `~/.config/starship.toml` | Prompt en bloques Nord: `⬢ snaplabs` → carpeta → git → Python/Node/tiempo; flecha roja si falla |
+| `~/.config/starship.base.toml` | Forma del prompt (bloques `⬢ snaplabs` → carpeta → git → Python/Node/tiempo; flecha roja si falla). `starship.toml` se genera solo con los colores |
 | `~/.config/hypr/scripts/wallpaper-next.sh` | Pasa a la siguiente imagen de `~/Pictures/Wallpapers` y la guarda |
-| `~/.dotfiles/info/exclude` | Ignora en git `theme/generated/` y `mako/config` (se generan solos) |
-| `~/.config/mako/config.base` | Estructura de mako (timeout 3000 ms); `config` se genera solo |
+| `~/.dotfiles/info/exclude` | Ignora en git `theme/generated/`, `mako/config` y `starship.toml` (se generan solos) |
+| `~/.config/mako/config.base` | Notificaciones estilo Mac: tarjeta 380 px, esquinas 16, ícono a la izquierda (WhiteSur), arriba a la derecha, 3 s. `config` se genera solo (app pequeña, título grande, cuerpo apagado; crítica con borde rojo y sin tiempo) |
+| `/etc/systemd/logind.conf.d/tapa.conf` | Tapa: sin HDMI suspende · con HDMI (`Docked`) solo bloquea. **Fuera de home** |
+| Servicios NVIDIA de suspensión | `nvidia-suspend/resume/hibernate` activados: sin ellos el HDMI (va por la NVIDIA) quedaba negro al despertar. **Fuera de home** |
+| `~/.config/yay/config.json` | `yay --save --removemake`: borra solas las dependencias de compilación |
 | `~/.bashrc` | Alias `dot` para los dotfiles |
 | Git | `user.name SebasXayala`, rama por defecto `main`; dotfiles en `~/.dotfiles` → `github.com/SebasXayala/dotfiles` (privado) |
 | Wi-Fi | Red guardada con `nmtui`; se conecta sola |
@@ -195,6 +201,18 @@ El kernel ya soporta el Victus 15-fb0xxx (placa 8A3D).
 
 > Automático = el firmware ajusta según temperatura. El perfil cambia la agresividad, no fija el máximo.
 
+## Recrear lo que está fuera de home (si reinstalas)
+
+Copia de seguridad de estos archivos en `~/.config/system/` (sí está en dotfiles). Para restaurar:
+
+```
+sudo cp ~/.config/system/99-hp-fan.rules /etc/udev/rules.d/
+sudo mkdir -p /etc/systemd/logind.conf.d
+sudo cp ~/.config/system/tapa.conf /etc/systemd/logind.conf.d/
+sudo systemctl enable nvidia-suspend.service nvidia-resume.service nvidia-hibernate.service
+yay --save --removemake
+```
+
 ## Snapshots manuales (puntos de retorno)
 
 | Descripción | Estado del sistema |
@@ -205,6 +223,7 @@ El kernel ya soporta el Victus 15-fb0xxx (placa 8A3D).
 | Yazi, launcher y Wi-Fi configurados | Explorador, launcher y Wi-Fi |
 | Utilidades esenciales instaladas | Bloqueo, notificaciones, portapapeles, mantenimiento y capturas |
 | Config Hyprland: monitores, capturas, autoarranque (config **home**) | Carpeta personal con la configuración de Hyprland |
+| Tema Nord + bloqueo y suspension OK | Paleta central completa, Waybar/mako/hyprlock/wlogout, tapa y NVIDIA al despertar |
 
 > Comprueba cuáles creaste realmente con `sudo snapper list`.
 
@@ -213,13 +232,13 @@ El kernel ya soporta el Victus 15-fb0xxx (placa 8A3D).
 - Luz del teclado en `hypridle.conf`: verificar el nombre con `brightnessctl -l | grep -i kbd`.
 - `gnome-keyring`: guardar contraseñas de Chrome/Discord cifradas.
 - `noto-fonts-emoji`: emojis en web y Discord (verificar si está con `pacman -Q noto-fonts-emoji`).
-- Conectar hyprlock y wlogout a la paleta.
-- Blur también para la Waybar (regla de capa en Hyprland).
+- Color de la sombra de las ventanas desde la paleta.
+- Fechas en español (bloqueo y Waybar).
+- Dock estilo Mac (nwg-dock-hyprland).
 - Temas Nord para VS Code, Chrome y Discord.
 - Fondo de pantalla que combine con Nord.
 - Agente SSH para no escribir la passphrase en cada `push`.
 - Revisar huérfanos de vez en cuando: `pacman -Qdt` → borrar con `sudo pacman -Rns $(pacman -Qdtq)`.
-- Que yay borre solas las dependencias de compilación: `yay --save --removemake`.
 - Autoarranque de Hyprland al iniciar sesión (ahora sería en `~/.zprofile`, porque el shell es zsh).
 
 ---

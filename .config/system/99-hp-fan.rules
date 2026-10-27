@@ -1,0 +1,1 @@
+SUBSYSTEM=="hwmon", ATTR{name}=="hp", RUN+="/bin/chgrp wheel /sys%p/pwm1_enable", RUN+="/bin/chmod g+w /sys%p/pwm1_enable"

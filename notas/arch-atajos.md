@@ -91,9 +91,17 @@ Escalas válidas en 1920×1080 (dan números enteros): 1 · 1.2 · 1.25 · 1.5 �
 | Bloquear ahora | **Super + L** o `loginctl lock-session` |
 | Desbloquear | Escribir tu contraseña + Enter |
 | Suspender | `systemctl suspend` (bloquea antes de dormir) |
+| Cerrar la tapa **sin** HDMI | Suspende y bloquea |
+| Cerrar la tapa **con** HDMI | Solo bloquea y apaga la pantalla del portátil; el monitor sigue. Al abrir, vuelve a encenderse |
+| Menú de apagado | Clic en ajustes de la Waybar → teclas `l` bloquear · `e` cerrar sesión · `u` suspender · `r` reiniciar · `s` apagar · Esc salir |
+| Contraseña al bloquear | Borde **amarillo** = comprobando · **rojo** = incorrecta |
+| Si el bloqueo se cuelga | Ctrl + Alt + F2 → iniciar sesión → `pkill hyprlock` → Ctrl + Alt + F1 |
+| Apagar / encender la pantalla del portátil a mano | `hyprctl eval 'hl.monitor({ output = "eDP-1", disabled = true })'` · encender: `hyprctl reload` |
 
 **Automático:** 2,5 min atenúa · 5 min bloquea · 5,5 min apaga pantalla · 30 min suspende.
-Tiempos en `~/.config/hypr/hypridle.conf`.
+Tiempos en `~/.config/hypr/hypridle.conf` · diseño del bloqueo en `~/.config/hypr/hyprlock.conf`.
+
+> Si el monitor HDMI queda negro al despertar: revisar que estén activos los servicios NVIDIA (`systemctl is-enabled nvidia-suspend nvidia-resume`).
 
 ---
 
@@ -116,13 +124,13 @@ Tiempos en `~/.config/hypr/hypridle.conf`.
 | Ctrl + Shift + A → M / L / 1 | Más / menos transparencia / opaco (solo esa ventana, temporal) |
 | Ctrl + Shift + F5 | Recargar la configuración de kitty |
 
-**Configuración:** fuente JetBrains Mono Nerd Font 11 · transparencia 0.90 · márgenes 12 · cursor línea · pestañas abajo · shell zsh.
+**Configuración:** fuente JetBrains Mono Nerd Font 11 · transparencia desde la paleta (`OPACITY`) · márgenes 12 · cursor línea · pestañas abajo · shell zsh.
 
 ---
 
 ## 3b. zsh, Starship y herramientas
 
-**Prompt (Starship):** `⬢ snaplabs` › carpeta › rama y cambios de git › Python/Node › tiempo del comando (si pasa de 2 s). La flecha `❯` se pone **roja** si el último comando falló. Configuración: `~/.config/starship.toml`.
+**Prompt (Starship):** `⬢ snaplabs` › carpeta › rama y cambios de git › Python/Node › tiempo del comando (si pasa de 2 s). La flecha `❯` se pone **roja** si el último comando falló. Forma en `~/.config/starship.base.toml` (colores desde la paleta; `starship.toml` se genera solo).
 
 **fastfetch al abrir:** logo SnapLabs + ficha del equipo. Configuración: `~/.config/fastfetch/config.jsonc` y `logo.txt`. Verlo de nuevo: `ff`.
 
@@ -174,21 +182,23 @@ Tiempos en `~/.config/hypr/hypridle.conf`.
 
 | Acción | Cómo |
 |---|---|
-| Ver fecha completa | Clic en la hora |
-| Ventiladores al máximo / automático | Clic en 󰈐 (rojo = máximo) |
-| Cambiar perfil de energía | Clic en el ícono de perfil (verde ahorro · azul equilibrado · rojo rendimiento) |
-| Menú apagar / reiniciar / bloquear | Clic en ⏻ (wlogout) |
+| Abrir el lanzador | Clic en ⬢ (izquierda) |
+| Ver monitores del sistema (CPU, RAM, temperatura, GPU, ventiladores, perfil) | Pasar el ratón por `‹` (cajón que se despliega) |
+| Ventiladores al máximo / automático | Dentro del cajón, clic en 󰈐 (rojo = máximo) |
+| Cambiar perfil de energía | Dentro del cajón, clic en el ícono de perfil (verde ahorro · azul equilibrado · rojo rendimiento) |
+| Menú apagar / reiniciar / bloquear | Clic en el ícono de ajustes, junto a la hora (wlogout) |
+| Cambiar volumen | Rueda del ratón sobre el volumen (de 5 en 5) |
 | Bluetooth | Clic en el ícono → `bluetoothctl` |
 | Detalles de RAM, GPU, ventiladores, batería | Pasar el ratón por encima |
 | Ver calendario | Pasar el ratón sobre la hora |
 | Abrir menú de Wi-Fi (nmtui) | Clic en la red |
 | Silenciar / activar sonido | Clic en el volumen |
-| Cambiar de escritorio | Clic en el número |
+| Cambiar de escritorio | Clic en el punto (● activo · ○ otro) |
 | Recargar estilo | `pkill -SIGUSR2 waybar` |
 | Reiniciar la barra | `pkill waybar; nohup waybar >/dev/null 2>&1 &` |
 | Quitar un módulo | Borrar su nombre de `modules-left/center/right` en `config.jsonc` y reiniciar la barra |
 
-Orden: escritorios · ventana activa · hora · CPU · RAM · temperatura · GPU · ventiladores · bandeja · Bluetooth · brillo · volumen · red · perfil · batería · apagado.
+Orden: **izquierda** ⬢ · app activa · escritorios — **derecha** `‹` cajón · bandeja · Bluetooth · red · volumen · batería (% solo si está baja) · ajustes · fecha y hora.
 
 > El módulo de GPU mantiene despierta la RTX: en batería conviene quitarlo o subir su `interval`.
 
@@ -203,7 +213,10 @@ Orden: escritorios · ventana activa · hora · CPU · RAM · temperatura · GPU
 | Cerrar todas | `makoctl dismiss -a` |
 | Recuperar la última cerrada | `makoctl restore` |
 | Enviar una de prueba | `notify-send "Título" "Mensaje"` |
+| Enviar una con ícono y nombre de app | `notify-send -a Sistema -i camera-photo "Título" "Mensaje"` |
 | Duración | `default-timeout` en `~/.config/mako/config.base` (3000 = 3 s) |
+| Ver íconos disponibles (WhiteSur) | `ls /usr/share/icons/WhiteSur/apps/scalable/` |
+| Transparencia | `NOTIF_OPACITY` en `palette.sh` |
 
 ---
 
@@ -216,6 +229,9 @@ Orden: escritorios · ventana activa · hora · CPU · RAM · temperatura · GPU
 | Estructura de kitty | `~/.config/kitty/kitty.conf` (debajo de la línea `include`) |
 | Fondo de pantalla | Imágenes en `~/Pictures/Wallpapers` (nombres **sin espacios ni comas**) · Super + W rota · probar al momento: `hyprctl hyprpaper wallpaper "eDP-1,$HOME/Pictures/Wallpapers/x.jpg"` |
 | Estructura de mako | `~/.config/mako/config.base` (**no** editar `config`) |
+| Forma del prompt | `~/.config/starship.base.toml` (**no** editar `starship.toml`) |
+| Bloqueo / menú de apagado | `~/.config/hypr/hyprlock.conf` · `~/.config/wlogout/layout` y `style.css` |
+| **Mapa completo de archivos** | Nota `arch-mapa-config.md` |
 | Estructura de Waybar | `~/.config/waybar/config.jsonc` y `style.css` |
 | Bordes, espacios, animaciones | `~/.config/hypr/hyprland.lua` |
 | Abrir todas las configs en VS Code | `code ~/.config` |
@@ -228,6 +244,7 @@ Orden: escritorios · ventana activa · hora · CPU · RAM · temperatura · GPU
 |---|---|---|
 | `OPACITY` | Terminal | 0.50 |
 | `BAR_OPACITY` | Waybar | 0.45 |
+| `NOTIF_OPACITY` | Notificaciones | 0.95 |
 | `WIN_OPACITY_ACTIVE` | Ventana con foco | 1.0 |
 | `WIN_OPACITY_INACTIVE` | Ventanas sin foco | 0.60 |
 | `BLUR` / `BLUR_SIZE` / `BLUR_PASSES` | Desenfoque detrás de lo transparente | true / 12 / 3 |
@@ -252,7 +269,7 @@ Orden: escritorios · ventana activa · hora · CPU · RAM · temperatura · GPU
 | `ssh -T git@github.com` | Probar la conexión SSH con GitHub |
 
 > Nunca añadir `~/.ssh` ni archivos con contraseñas o tokens. Para proyectos normales se usa `git`, no `dot`.
-> Ignorados (se generan solos): `theme/generated/` y `mako/config`, en `~/.dotfiles/info/exclude`.
+> Ignorados (se generan solos): `theme/generated/`, `mako/config` y `starship.toml`, en `~/.dotfiles/info/exclude`.
 > `hyprpaper.conf` cambia con cada Super + W: súbelo cuando quieras guardar el fondo actual.
 
 ---

@@ -53,6 +53,6 @@
   "format-icons": ["\udb80\udc7a", "\udb80\udc7c", "\udb80\udc7e", "\udb80\udc80", "\udb80\udc79"],
   "tooltip-format": "Bater\u00eda: {capacity}% \u00b7 {timeTo}"
  },
- "custom/control": { "format": "\uf1de", "tooltip-format": "Apagar, reiniciar, bloquear", "on-click": "wlogout" },
+ "custom/control": { "format": "\uf1de", "tooltip-format": "Apagar, reiniciar, bloquear", "on-click": "wlogout -b 5 -T 320 -B 320 -L 240 -R 240" },
  "clock": { "format": "{:%a %d %b   %H:%M}", "tooltip-format": "<tt>{calendar}</tt>" }
 }

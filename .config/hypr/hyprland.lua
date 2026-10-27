@@ -415,7 +415,17 @@ hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen
 -- Blur detrás de la Waybar y de las notificaciones (mako)
 hl.layer_rule({
     name = "blur-barra-y-notificaciones",
-    match = { namespace = "^(waybar|notifications)$" },
+    match = { namespace = "^(waybar|notifications|logout_dialog)$" },
     blur = true,
     ignore_alpha = 0.2,
 })
+
+-- Tapa del portátil: con HDMI conectado, apagar la pantalla interna al cerrar
+hl.bind("switch:on:Lid Switch", function()
+  if hl.get_monitor("HDMI-A-1") ~= nil then
+    hl.monitor({ output = "eDP-1", disabled = true })
+  end
+end, { locked = true })
+
+-- Al abrir la tapa: recargar la config para volver a encender eDP-1
+hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd("hyprctl reload"), { locked = true })
