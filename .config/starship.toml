@@ -1,0 +1,63 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+palette = "nord"
+
+format = """
+[\ue0b6](fg:c1)\
+[ ⬢ snaplabs ](bg:c1 fg:base)\
+[\ue0b0](fg:c1 bg:c2)\
+$directory\
+[\ue0b0](fg:c2 bg:c3)\
+$git_branch\
+$git_status\
+[\ue0b0](fg:c3 bg:c4)\
+$python\
+$nodejs\
+$cmd_duration\
+[\ue0b4 ](fg:c4)\
+$line_break$character"""
+
+[palettes.nord]
+base   = "#2e3440"
+c1     = "#88c0d0"
+c2     = "#81a1c1"
+c3     = "#4c566a"
+c4     = "#3b4252"
+text   = "#eceff4"
+yellow = "#ebcb8b"
+green  = "#a3be8c"
+red    = "#bf616a"
+
+[directory]
+style = "bg:c2 fg:base"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[git_branch]
+symbol = "\ue0a0 "
+style = "bg:c3 fg:text"
+format = "[ $symbol$branch ]($style)"
+
+[git_status]
+style = "bg:c3 fg:yellow"
+format = "[($all_status$ahead_behind )]($style)"
+
+[python]
+symbol = "\ue73c "
+style = "bg:c4 fg:yellow"
+format = "[ $symbol$version( \\($virtualenv\\)) ]($style)"
+
+[nodejs]
+symbol = "\ue718 "
+style = "bg:c4 fg:green"
+format = "[ $symbol$version ]($style)"
+
+[cmd_duration]
+min_time = 2000
+style = "bg:c4 fg:yellow"
+format = "[ \U000f144d $duration ]($style)"
+
+[character]
+success_symbol = "[❯](bold fg:c1)"
+error_symbol = "[❯](bold fg:red)"
