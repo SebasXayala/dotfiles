@@ -429,3 +429,10 @@ end, { locked = true })
 
 -- Al abrir la tapa: recargar la config para volver a encender eDP-1
 hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd("hyprctl reload"), { locked = true })
+
+-- Apps X11 (Steam, juegos): no estirarlas en pantallas con escala, para que se vean nítidas
+hl.config({
+    xwayland = {
+        force_zero_scaling = true,
+    },
+})
