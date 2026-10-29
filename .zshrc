@@ -34,3 +34,4 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 # ===== Al abrir la terminal =====
 fastfetch
+export PATH="$HOME/.local/bin:$PATH"
