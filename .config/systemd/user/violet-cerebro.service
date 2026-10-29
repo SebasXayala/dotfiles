@@ -1,0 +1,11 @@
+[Unit]
+Description=Violet - cerebro (llama.cpp + Qwen3)
+
+[Service]
+EnvironmentFile=%h/.config/violet/secreto.env
+ExecStart=/usr/bin/llama-server -m %h/violet/models/cerebro.gguf -ngl 99 -c 8192 --parallel 1 --jinja --host 127.0.0.1 --port 8091 --api-key ${VIOLET_API_KEY}
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
