@@ -1,0 +1,53 @@
+{
+  "permissions": {
+    "defaultMode": "default",
+    "allow": [
+      "Bash(journalctl:*)",
+      "Bash(systemctl status:*)",
+      "Bash(systemctl --user status:*)",
+      "Bash(systemctl list-units:*)",
+      "Bash(systemctl --failed:*)",
+      "Bash(hyprctl version:*)",
+      "Bash(hyprctl configerrors:*)",
+      "Bash(hyprctl monitors:*)",
+      "Bash(hyprctl clients:*)",
+      "Bash(hyprctl devices:*)",
+      "Bash(hyprctl binds:*)",
+      "Bash(pacman -Q:*)",
+      "Bash(pacman -Si:*)",
+      "Bash(pacman -Ss:*)",
+      "Bash(checkupdates:*)",
+      "Bash(nvidia-smi:*)",
+      "Bash(lspci:*)",
+      "Bash(lsblk:*)",
+      "Bash(df:*)",
+      "Bash(free:*)",
+      "Bash(uptime:*)",
+      "Bash(dmesg:*)",
+      "Bash(sensors:*)",
+      "Read(//etc/**)",
+      "Read(//var/log/**)",
+      "Read(//usr/share/**)"
+    ],
+    "ask": [
+      "Bash(sudo:*)",
+      "Bash(rm:*)",
+      "Bash(yay:*)",
+      "Bash(git push:*)",
+      "Bash(git --git-dir=*push*)"
+    ],
+    "deny": [
+      "Read(~/.ssh/**)",
+      "Edit(~/.ssh/**)",
+      "Read(~/.gnupg/**)",
+      "Edit(~/.gnupg/**)",
+      "Read(~/.dotfiles/**)",
+      "Edit(~/.dotfiles/**)",
+      "Read(~/.config/google-chrome/**)",
+      "Read(~/.mozilla/**)",
+      "Read(~/.config/discord/**)",
+      "Read(**/.env)",
+      "Read(**/*secret*)"
+    ]
+  }
+}
