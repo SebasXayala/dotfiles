@@ -10,7 +10,7 @@ cambias los colores en **un solo archivo** y se actualiza todo el escritorio.
 ![Tema](https://img.shields.io/badge/tema-Nord-5e81ac?style=flat-square)
 ![Shell](https://img.shields.io/badge/shell-zsh_+_Starship-a3be8c?style=flat-square)
 
-![Escritorio](.config/assets/escritorio.png)
+![Escritorio](../.config/assets/escritorio.png)
 
 </div>
 
@@ -128,7 +128,7 @@ sudo pacman -S steam nvidia-prime     # juegos (requiere multilib)
 yay -S wlogout whitesur-icon-theme
 ```
 
-La lista completa, con el motivo de cada paquete, está en [`notas/arch-paquetes.md`](notas/arch-paquetes.md).
+La lista completa, con el motivo de cada paquete, está en [`notas/arch-paquetes.md`](../notas/arch-paquetes.md).
 
 ### 2. Clonar (repositorio *bare*)
 
@@ -178,7 +178,7 @@ Cierra la sesión y vuelve a entrar en Hyprland.
 | `Super + Ctrl + ←↑↓→` | Cambiar tamaño |
 | `Super + 1…0` | Cambiar de escritorio |
 
-Todos los atajos están en [`notas/arch-atajos.md`](notas/arch-atajos.md).
+Todos los atajos están en [`notas/arch-atajos.md`](../notas/arch-atajos.md).
 
 ---
 
@@ -186,10 +186,10 @@ Todos los atajos están en [`notas/arch-atajos.md`](notas/arch-atajos.md).
 
 | Nota | Contenido |
 |---|---|
-| [`arch-paquetes.md`](notas/arch-paquetes.md) | Cada paquete instalado y para qué sirve; cambios del sistema |
-| [`arch-atajos.md`](notas/arch-atajos.md) | Atajos y comandos de cada herramienta |
-| [`arch-mapa-config.md`](notas/arch-mapa-config.md) | Qué archivo controla qué, y qué sale de la paleta |
-| [`arch-mantenimiento.md`](notas/arch-mantenimiento.md) | Rutina de actualización, snapshots y qué hacer si algo falla |
+| [`arch-paquetes.md`](../notas/arch-paquetes.md) | Cada paquete instalado y para qué sirve; cambios del sistema |
+| [`arch-atajos.md`](../notas/arch-atajos.md) | Atajos y comandos de cada herramienta |
+| [`arch-mapa-config.md`](../notas/arch-mapa-config.md) | Qué archivo controla qué, y qué sale de la paleta |
+| [`arch-mantenimiento.md`](../notas/arch-mantenimiento.md) | Rutina de actualización, snapshots y qué hacer si algo falla |
 
 ---
 
