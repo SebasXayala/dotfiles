@@ -1,6 +1,5 @@
 {
   "permissions": {
-    "defaultMode": "default",
     "allow": [
       "Bash(journalctl:*)",
       "Bash(systemctl status:*)",
@@ -29,13 +28,6 @@
       "Read(//var/log/**)",
       "Read(//usr/share/**)"
     ],
-    "ask": [
-      "Bash(sudo:*)",
-      "Bash(rm:*)",
-      "Bash(yay:*)",
-      "Bash(git push:*)",
-      "Bash(git --git-dir=*push*)"
-    ],
     "deny": [
       "Read(~/.ssh/**)",
       "Edit(~/.ssh/**)",
@@ -48,6 +40,19 @@
       "Read(~/.config/discord/**)",
       "Read(**/.env)",
       "Read(**/*secret*)"
-    ]
-  }
+    ],
+    "ask": [
+      "Bash(sudo:*)",
+      "Bash(rm:*)",
+      "Bash(yay:*)",
+      "Bash(git push:*)",
+      "Bash(git --git-dir=*push*)"
+    ],
+    "defaultMode": "default"
+  },
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "voiceEnabled": true
 }
